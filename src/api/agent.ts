@@ -45,8 +45,6 @@ const User = {
     requests.post("/users/register", user) as Promise<IUser>,
 };
 
-
-
 const sites = {
   User
 }

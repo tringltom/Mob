@@ -7,7 +7,6 @@ const styles = StyleSheet.create({});
 const ArenaScreen = ({navigation}) => {
     return (
       <>
-        <Container position="bottom-right"/>
         <Text style={{ fontSize: 48 }}>Arena Screen</Text>
       </>
     );
