@@ -1,22 +1,26 @@
 import axios, { AxiosResponse } from "axios";
 import { IUser, IUserFormValues } from "../models/user";
 import { Toast } from "toastify-react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 axios.defaults.baseURL = process.env.NODE_ENV !== 'production'
 ? "http://192.168.0.15:4001"
 : "https://ekviti.rs/api";
 
-// axios.interceptors.request.use((config) => {
-//   config.withCredentials = true;
-//   const token = window.localStorage.getItem('jwt');
-//   if (token) config!.headers!.Authorization = `Bearer ${token}`;
-//      return config
-//  }, error => {
-//      return Promise.reject(error);
-//  })
+axios.interceptors.request.use((config) => {
+  config.withCredentials = true;
+  try {
+    const token = AsyncStorage.getItem("jwt");
+    if (token !== null) {
+      config!.headers!.Authorization = `Bearer ${token}`;
+      return config;
+    }
+  } catch (e) {
+    return Promise.reject(e);
+  }
+});
 
 axios.interceptors.response.use(undefined, (error) => {
-  console.log(error.response);
   if (error.message === "Network Error" && !error.response)
     Toast.error("Mrežna Greška - Servis trenutno nije dostupan");
 

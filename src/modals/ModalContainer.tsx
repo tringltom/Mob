@@ -1,36 +1,44 @@
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
-import  Modal from "react-native-modal";
+import Modal from "react-native-modal";
 import { RootStoreContext } from "../stores/rootStore";
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Container from "toastify-react-native";
 
 const ModalContainer = () => {
   const rootStore = useContext(RootStoreContext);
   const {
-    modal: { open, body},
-    closeModal, 
+    modal: { open, body },
+    closeModal,
   } = rootStore.modalStore;
 
   const styles = StyleSheet.create({
+    content: {
+      backgroundColor: "white",
+      padding: 22,
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 4,
+      borderColor: "rgba(0, 0, 0, 0.1)",
+    },
     view: {
-      justifyContent: 'center',
-      margin: 0,
-      flex: 1, alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)', height: '20%'
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
     },
   });
 
   return (
-    <Modal 
-    isVisible={open} 
-    animationIn="zoomIn"
-    animationOut="zoomOut"
-    style={styles.view}
-    onBackdropPress={closeModal}
-    onBackButtonPress={closeModal}
+    <Modal
+      style={styles.view}
+      isVisible={open}
+      animationIn="zoomIn"
+      animationOut="zoomOut"
+      onBackdropPress={closeModal}
+      onBackButtonPress={closeModal}
     >
-      <>
-      {body}
-      </>
+      <Container position="center" />
+      <View style={styles.content}>{body}</View>
     </Modal>
   );
 };

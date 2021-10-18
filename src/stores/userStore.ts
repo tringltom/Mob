@@ -4,41 +4,36 @@ import { IUser, IUserFormValues } from "../models/user";
 import { RootStore } from "./rootStore";
 
 export default class UserStore {
-  refreshTokenTimeout: any;
   rootStore: RootStore;
   user: IUser | null = null;
-  loading = false;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this);
   };
 
-  get isLoggedIn() {
-    return !!this.user;
-  };
-
   login = async (values: IUserFormValues) => {
     try {
-      const user = await agent.User.login({email: 'test@outlook.com', password:'test'});
-      console.log('login' + user);
+      const user = await agent.User.login(values);
       runInAction(() => {
         this.user = user;
       });
-    //   this.rootStore.commonStore.setToken(user.token);
-    //   this.startRefreshTokenTimer(user);
-    //   this.rootStore.modalStore.closeModal();
-    //   history.push("/arena");
+      this.rootStore.commonStore.setToken(user.token);
+      this.rootStore.modalStore.closeModal();
     } catch (error) {
       throw error;
     }
   };
 
+  logout = () => {
+      this.rootStore.commonStore.setToken(null);
+      this.user = null;
+   };
+
   register = async (values: IUserFormValues) => {
     try {
-      await agent.User.register(values);
+      //await agent.User.register(values);
       // this.rootStore.modalStore.closeModal();
-      // history.push(`/users/registerSuccess?email=${values.email}`);
     } catch (error) {
       throw error;
     }

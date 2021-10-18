@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import { RootStore } from "./rootStore";
 
 export default class ModalStore {
@@ -14,7 +14,6 @@ export default class ModalStore {
   };
 
   @action openModal = (content: any) => {
-    console.log('123');
     this.modal.open= true
     this.modal.body = content;    
   };

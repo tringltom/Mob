@@ -1,13 +1,19 @@
-import React from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
-import Container from "toastify-react-native";
+import React, { useContext } from 'react';
+import { StyleSheet, Text } from 'react-native';
+import { Button } from '@muratoner/semantic-ui-react-native';
+import { RootStoreContext } from "../stores/rootStore";
 
 const styles = StyleSheet.create({});
 
-const ArenaScreen = ({navigation}) => {
+const ArenaScreen = () => {
+
+  const rootStore = useContext(RootStoreContext);
+  const { logout } = rootStore.userStore;
+
     return (
       <>
         <Text style={{ fontSize: 48 }}>Arena Screen</Text>
+        <Button title='Log out' onPress={logout}></Button>
       </>
     );
 };
