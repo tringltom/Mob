@@ -15,7 +15,6 @@ export default class CommonStore {
         if (token) {
           AsyncStorage.setItem("jwt", token as string);
         } else {
-          console.log(token);
           AsyncStorage.removeItem("jwt");
         }
       }
