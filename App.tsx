@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import ArenaScreen from './src/screens/ArenaScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,7 +10,13 @@ import { observer } from 'mobx-react-lite';
 import ModalContainer from './src/modals/ModalContainer';
 import { navigationRef } from './src/navigationRef'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import GoodDeedForm from './src/features/activities/GoodDeedForm';
+import JokeForm from './src/features/activities/JokeForm';
+import QuoteForm from './src/features/activities/QuoteForm';
+import PuzzleForm from './src/features/activities/PuzzleForm';
+import HappeningForm from './src/features/activities/HappeningForm';
+import ChallengeForm from './src/features/activities/ChallengeForm';
+import { Icon } from '@muratoner/semantic-ui-react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,16 +31,68 @@ const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function MainScreen() {
+  const rootStore = useContext(RootStoreContext);
+  const { logout } = rootStore.userStore;
+
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="ArenaScreen" component={ArenaScreen} />
+    <Drawer.Navigator screenOptions={{ headerShown: true, headerTitle: "" }} drawerContent={props => {
+      return (
+        <DrawerContentScrollView {...props}>
+          <DrawerItemList {...props} />
+          <DrawerItem style={{borderColor: 'red'}} label="Odjava" onPress={logout} />
+        </DrawerContentScrollView>
+      )
+    }}>
+      <Drawer.Screen name="Arena" component={ArenaScreen} />
+      <Drawer.Screen
+        name="Dobro Delo"
+        component={GoodDeedForm}
+        options={{
+          drawerIcon: ({size}) => <Icon name="heartbeat" size={size} type="FontAwesome" />,
+        }}
+      />
+      <Drawer.Screen
+        name="Vic"
+        component={JokeForm}
+        options={{
+          drawerIcon: ({size}) => <Icon name="smile-o" size={size} type="FontAwesome" />,
+        }}
+      />
+      <Drawer.Screen
+        name="Izreka"
+        component={QuoteForm}
+        options={{
+          drawerIcon: ({size}) => <Icon name="commenting" size={size} type="FontAwesome" />,
+        }}
+      />
+      <Drawer.Screen
+        name="Zagonetka"
+        component={PuzzleForm}
+        options={{
+          drawerIcon: ({size}) => <Icon name="puzzle-piece" size={size} type="FontAwesome" />,
+        }}
+      />
+      <Drawer.Screen
+        name="Događaj"
+        component={HappeningForm}
+        options={{
+          drawerIcon: ({size}) => <Icon name="address-card-o" size={size} type="FontAwesome" />,
+        }}
+      />
+      <Drawer.Screen
+        name="Izazov"
+        component={ChallengeForm}
+        options={{
+          drawerIcon: ({size}) => <Icon name="hand-rock-o" size={size} type="FontAwesome" />,
+        }}
+      />
     </Drawer.Navigator>
   );
 }
 
 const App = () => {
   const rootStore = useContext(RootStoreContext);
-  const { token, setToken} = rootStore.commonStore;
+  const { token, setToken } = rootStore.commonStore;
 
   const [appLoaded, setAppLoaded] = useState(false);
 
@@ -51,7 +109,7 @@ const App = () => {
 
   return !appLoaded ? (
     <View style={styles.container}>
-    <Text>Loading</Text>
+      <Text>Loading</Text>
     </View>
   ) : (
     <NavigationContainer ref={navigationRef}>
@@ -62,11 +120,17 @@ const App = () => {
             name="WelcomeScreen"
             component={WelcomeScreen}
             options={{
-              title: "Sign in",
+              headerShown: false,
             }}
           />
         ) : (
-          <Stack.Screen name="MainScreen" component={MainScreen} />
+          <Stack.Screen
+            name="MainScreen"
+            component={MainScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
         )}
       </Stack.Navigator>
     </NavigationContainer>
