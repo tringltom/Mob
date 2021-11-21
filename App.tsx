@@ -39,9 +39,14 @@ function MainScreen() {
       return (
         <DrawerContentScrollView {...props}>
           <DrawerItemList {...props} />
-          <DrawerItem style={{borderColor: 'red'}} label="Odjava" onPress={logout} />
+          <DrawerItem
+            style={{ borderColor: "red" }}
+            label="Odjava"
+            onPress={logout}
+            icon={({ size }) => <Icon name="power" size={size} />}
+          />
         </DrawerContentScrollView>
-      )
+      );
     }}>
       <Drawer.Screen name="Arena" component={ArenaScreen} />
       <Drawer.Screen
