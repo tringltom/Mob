@@ -40,18 +40,18 @@ steps:
    echo $i
   displayName: 'npm install and Expo & turtle build'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: "/users/vsts/expo-apps/$(iosArtifact)"
-    ArtifactName: 'ios'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: "/users/vsts/expo-apps/$(iosArtifact)"
+#     ArtifactName: 'ios'
+#     publishLocation: 'Container'
     
-  displayName: 'Publish IOS'
+#   displayName: 'Publish IOS'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: "/users/vsts/expo-apps/$(androidArtifact)"
-    ArtifactName: 'android'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: "/users/vsts/expo-apps/$(androidArtifact)"
+#     ArtifactName: 'android'
+#     publishLocation: 'Container'
     
-  displayName: 'Publish Android'  
+#   displayName: 'Publish Android'  
