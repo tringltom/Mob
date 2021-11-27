@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../stores/rootStore";
 import { LoginForm } from '../features/user/LoginForm';
@@ -20,7 +20,7 @@ const WelcomeScreen = () => {
         color="primary"
         onPress={() => openModal(<LoginForm />)}
       />
-      <Button title="Register" color="primary" onPress={register} />
+      <Button title="Register" color="primary" onPress={() => register} />
     </>
   );
 };
