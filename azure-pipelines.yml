@@ -18,11 +18,8 @@ steps:
 - task: JavaToolInstaller@0
   inputs:
     versionSpec: '8'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: 'LocalDirectory'
-    jdkFile: '/builds/openjdk-11.0.2_linux-x64_bin.tar.gz'
-    jdkDestinationDirectory: '$(agent.toolsDirectory)/jdk6'
-    cleanDestinationDirectory: true
+    jdkArchitectureOption: 'x86'
+    jdkSourceOption: 'PreInstalled'
 
   displayName: 'Install Java tool'
 
