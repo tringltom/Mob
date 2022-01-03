@@ -2,29 +2,31 @@ import axios, { AxiosResponse } from "axios";
 import { IUser, IUserFormValues } from "../models/user";
 import { Toast } from "toastify-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { IActivitiesEnvelope, IActivityFormValues } from "../models/activity";
 
 axios.defaults.baseURL = process.env.NODE_ENV !== 'production'
 ? "http://192.168.0.15:4001"
 : "https://ekviti.rs/api";
 
-axios.interceptors.request.use((config) => {
-  config.withCredentials = true;
-  try {
-    const token = AsyncStorage.getItem("jwt");
-    if (token !== null) {
-      config!.headers!.Authorization = `Bearer ${token}`;
-      return config;
+axios.interceptors.request.use(
+  async config => {
+    const token = await AsyncStorage.getItem("jwt")
+    if (token) {
+      config.headers!.Authorization = `Bearer ${token}`
     }
-  } catch (e) {
-    return Promise.reject(e);
+    return config
+  },
+  error => {
+    return Promise.reject(error)
   }
-});
+);
 
-axios.interceptors.response.use(undefined, (error) => {
-  if (error.message === "Network Error" && !error.response)
-    Toast.error("Mrežna Greška - Servis trenutno nije dostupan");
-
-  throw error.response;
+axios.interceptors.response.use((response) => {
+  return response}, 
+  (error) => {
+    if (error.message === "Network Error" && !error.response)
+      Toast.error("Mrežna Greška - Servis trenutno nije dostupan");
+    throw error.response;
 });
 
 const responseBody = (response: AxiosResponse) => response.data;
@@ -49,8 +51,28 @@ const User = {
     requests.post("/users/register", user) as Promise<IUser>,
 };
 
+const Activity = {
+  create: async (activity: IActivityFormValues): Promise<string> => {
+    let formData = new FormData();
+    Object.keys(activity).forEach(async (key) => {
+      if (key === "images") {
+        if (activity[key] !== null)
+          // @ts-ignore: Typescript/react-native-blob issue - working as expected witohut typescript     
+          formData.append(key, { uri: activity[key], name: 'image.jpg', type: 'image/jpeg' });
+      } else
+      {
+        formData.append(key, activity[key]);
+      }
+    });
+    return await requests.postForm("/activities/create", formData) as Promise<string>;
+  },
+  getPendingActivities: (params: URLSearchParams): Promise<IActivitiesEnvelope> => axios.get("/activities",{params: params}).then(responseBody) as Promise<IActivitiesEnvelope>,
+  resolvePendingActivity : (id: string, approve: boolean): Promise<boolean> => requests.post(`/activities/resolve/${id}`, {approve}) as Promise<boolean>
+};
+
 const sites = {
-  User
+  User,
+  Activity
 }
 
 export default sites;

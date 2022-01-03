@@ -14,13 +14,16 @@ export default class UserStore {
 
   login = async (values: IUserFormValues) => {
     try {
+      this.rootStore.freezeScreen();
       const user = await agent.User.login(values);
       runInAction(() => {
         this.user = user;
       });
       this.rootStore.commonStore.setToken(user.token);
+      this.rootStore.unFreezeScreen();
       this.rootStore.modalStore.closeModal();
     } catch (error) {
+      this.rootStore.unFreezeScreen();
       throw error;
     }
   };
