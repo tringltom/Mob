@@ -20,6 +20,7 @@ import ChallengeForm from './src/features/activities/ChallengeForm';
 import { Avatar, Button, Icon } from '@muratoner/semantic-ui-react-native';
 import { useNavigation } from '@react-navigation/native';
 import ApprovalScreen from './src/screens/ApprovalScreen';
+import { ProfileContent } from './src/features/profile/ProfileContent';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +59,7 @@ const RightDrawerNav = () => {
         headerRight: () => (
           <View style={{flexDirection: 'row'}}>
             <Avatar containerStyle={{marginRight: 5, marginTop: 5}} source={require('./assets/user.png')} />
-            <Button style={{marginRight: 4}} title="username" color="secondary" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
+            <Button style={{marginRight: 4}} title={user?.username} color="secondary" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
           </View>
         ),
       }}
@@ -153,7 +154,7 @@ const MainScreen = () => {
       }}
     >
       <SettingsDrawer.Screen
-        name="Podešavanja"
+        name=" Arena"
         component={RightDrawerNav}
       />
       <SettingsDrawer.Screen
@@ -171,6 +172,21 @@ const MainScreen = () => {
           )
         }}
       />
+       <SettingsDrawer.Screen
+        name="Profil"
+        component={ProfileContent}
+        options={{
+          unmountOnBlur: true,
+          drawerIcon: ({ size }) => (
+            <Icon name="users" size={size} type="FontAwesome" />
+          ),
+          headerTitle: 'Profil',
+          headerShown: true,
+          headerLeft:() => (
+            <Button onPress={() => navigate('Arena')} style={{marginLeft: 5}} iconName="chevron-left" iconType="FontAwesome"/>
+          )
+        }}
+      />
     </SettingsDrawer.Navigator>
   );
 }
@@ -180,6 +196,7 @@ const App = () => {
   LogBox.ignoreLogs(["Failed prop type:"]);
   const rootStore = useContext(RootStoreContext);
   const { token, setToken } = rootStore.commonStore;
+  const { getUser } = rootStore.userStore
 
   const [appLoaded, setAppLoaded] = useState(false);
 
@@ -187,7 +204,7 @@ const App = () => {
     async function getToken() {
       await AsyncStorage.getItem("jwt").then((res) => {
         setToken(res);
-        setAppLoaded(true);
+        getUser().finally(() => setAppLoaded(true));
       });
     }
     setAppLoaded(false);

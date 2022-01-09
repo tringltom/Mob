@@ -20,18 +20,31 @@ export default class UserStore {
         this.user = user;
       });
       this.rootStore.commonStore.setToken(user.token);
-      this.rootStore.unFreezeScreen();
+      this.rootStore.unfreezeScreen();
       this.rootStore.modalStore.closeModal();
     } catch (error) {
-      this.rootStore.unFreezeScreen();
+      this.rootStore.unfreezeScreen();
       throw error;
     }
   };
 
   logout = () => {
-      this.rootStore.commonStore.setToken(null);
-      this.user = null;
-   };
+    this.rootStore.commonStore.setToken(null);
+    this.user = null;
+  };
+
+  getUser = async () => {
+    try {
+      const user = await agent.User.current();
+      runInAction(() => {
+        this.user = user;
+        this.rootStore.showDice = user.isDiceRollAllowed;
+      });
+      this.rootStore.commonStore.setToken(user.token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   register = async (values: IUserFormValues) => {
     try {

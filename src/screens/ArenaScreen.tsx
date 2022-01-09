@@ -1,16 +1,43 @@
-import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { Animated, Easing, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Container from "toastify-react-native";
-
-const styles = StyleSheet.create({});
+import { RootStoreContext } from '../stores/rootStore';
+import { View, Image } from 'react-native';
+import { observer } from 'mobx-react-lite';
 
 const ArenaScreen = () => {
+
+  const {rotateAnimation, showDice, getPrice} = useContext(RootStoreContext);
+
+  const interpolateRotating = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '720deg'],
+  });
+
+  const animatedStyle = {
+    transform: [
+      {
+        rotate: interpolateRotating,
+      },
+    ],
+  };
+
   return (
     <>
-      <Text style={{ fontSize: 48 }}>Arena Screen</Text>
+      {showDice && (
+        <TouchableOpacity
+          style={{ position: "absolute", left: 0, top: 0 }}
+          onPress={getPrice}
+        >
+          <Animated.Image
+            style={[{ width: 70, height: 70 }, animatedStyle]}
+            source={require("../../assets/d20.png")}
+          ></Animated.Image>
+        </TouchableOpacity>
+      )}
       <Container position="bottom" height={45} width={300} duration={3000} />
     </>
   );
 };
 
-export default ArenaScreen;
+export default observer(ArenaScreen);

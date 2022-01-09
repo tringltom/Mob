@@ -58,11 +58,11 @@ export default class ActivityStore {
 
   create = async (values: IActivityFormValues) => {
     try {
-      this.rootStore.frezeScreen();
+      this.rootStore.freezeScreen();
       const message = await agent.Activity.create(values);
       runInAction(() => {
         this.rootStore.modalStore.closeModal();
-        this.rootStore.unFrezeScreen();
+        this.rootStore.unfreezeScreen();
         navigate("Arena");
         setTimeout(() => {
           Toast.success(message);
@@ -70,7 +70,7 @@ export default class ActivityStore {
       });
     } catch (error) {
       this.rootStore.modalStore.closeModal();
-      this.rootStore.unFrezeScreen();
+      this.rootStore.unfreezeScreen();
       navigate("Arena");
       setTimeout(() => {
         Toast.error("Došlo je do greške, molimo Vas pokušajte ponovo..");
@@ -102,7 +102,7 @@ export default class ActivityStore {
 
   approvePendingActivity = async (activityId: string, approve: boolean) => {
     try {
-      this.rootStore.frezeScreen();
+      this.rootStore.freezeScreen();
       const success = await agent.Activity.resolvePendingActivity(
         activityId,
         approve
@@ -119,10 +119,10 @@ export default class ActivityStore {
           }, 0);
         }
         this.rootStore.modalStore.closeModal();
-        this.rootStore.unFrezeScreen();
+        this.rootStore.unfreezeScreen();
       });
     } catch (error) {
-      this.rootStore.unFrezeScreen();
+      this.rootStore.unfreezeScreen();
       this.rootStore.modalStore.closeModal();
       setTimeout(() => {
         Toast.error("Neuspešno, proverite konzolu");

@@ -3,9 +3,10 @@ import { IUser, IUserFormValues } from "../models/user";
 import { Toast } from "toastify-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IActivitiesEnvelope, IActivityFormValues } from "../models/activity";
+import { IDiceResult } from "../models/diceResult";
 
 axios.defaults.baseURL = process.env.NODE_ENV !== 'production'
-? "http://192.168.0.15:4001"
+? "http://192.168.0.33:4001"
 : "https://ekviti.rs/api";
 
 axios.interceptors.request.use(
@@ -25,7 +26,9 @@ axios.interceptors.response.use((response) => {
   return response}, 
   (error) => {
     if (error.message === "Network Error" && !error.response)
-      Toast.error("Mrežna Greška - Servis trenutno nije dostupan");
+      setTimeout(() => {
+        Toast.error("Mrežna Greška - Servis trenutno nije dostupan");
+      }, 0);
     throw error.response;
 });
 
@@ -70,9 +73,14 @@ const Activity = {
   resolvePendingActivity : (id: string, approve: boolean): Promise<boolean> => requests.post(`/activities/resolve/${id}`, {approve}) as Promise<boolean>
 };
 
+const Dice = {
+  roll: () : Promise<IDiceResult> => requests.get("/dice/rollTheDice") as Promise<IDiceResult>
+}
+
 const sites = {
   User,
-  Activity
+  Activity,
+  Dice,
 }
 
 export default sites;
