@@ -4,12 +4,12 @@ import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../stores/rootStore";
 import { LoginForm } from '../features/user/LoginForm';
 import { Button } from '@muratoner/semantic-ui-react-native';
+import RegisterForm from '../features/user/RegisterForm';
 
 const styles = StyleSheet.create({});
 
 const WelcomeScreen = () => {
   const rootStore = useContext(RootStoreContext);
-  const { register } = rootStore.userStore;
   const { openModal } = rootStore.modalStore;
 
   return (
@@ -20,7 +20,7 @@ const WelcomeScreen = () => {
         color="primary"
         onPress={() => openModal(<LoginForm />)}
       />
-      <Button title="Register" color="primary" onPress={() => register} />
+      <Button title="Register" color="primary" onPress={() => openModal(<RegisterForm />)} />
     </>
   );
 };

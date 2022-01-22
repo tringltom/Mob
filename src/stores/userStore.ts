@@ -32,8 +32,8 @@ export default class UserStore {
 
   register = async (values: IUserFormValues) => {
     try {
-      //await agent.User.register(values);
-      // this.rootStore.modalStore.closeModal();
+      await agent.User.register(values);
+      this.rootStore.modalStore.closeModal();
     } catch (error) {
       throw error;
     }

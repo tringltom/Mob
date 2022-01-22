@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View , LogBox} from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
 import ArenaScreen from './src/screens/ArenaScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
@@ -17,6 +17,19 @@ import PuzzleForm from './src/features/activities/PuzzleForm';
 import HappeningForm from './src/features/activities/HappeningForm';
 import ChallengeForm from './src/features/activities/ChallengeForm';
 import { Icon } from '@muratoner/semantic-ui-react-native';
+import * as Linking from 'expo-linking';
+LogBox.ignoreLogs(['Reanimated 2']);
+
+const prefix = Linking.makeUrl('/');
+
+const linking = {
+  prefixes:[prefix],
+  config: {
+   screens:{
+     Arena: "arena"
+   }
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -110,14 +123,14 @@ const App = () => {
     }
     setAppLoaded(false);
     getToken();
-  }, []);
+  },[]);
 
   return !appLoaded ? (
     <View style={styles.container}>
       <Text>Loading</Text>
     </View>
   ) : (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer ref={navigationRef} linking={linking}>
       <ModalContainer />
       <Stack.Navigator>
         {token == null ? (
@@ -137,6 +150,13 @@ const App = () => {
             }}
           />
         )}
+        <Stack.Screen
+            name="Arena"
+            component={ArenaScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
       </Stack.Navigator>
     </NavigationContainer>
   );
