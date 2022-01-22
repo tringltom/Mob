@@ -34,11 +34,10 @@ const ModalContainer = () => {
       isVisible={open}
       animationIn="zoomIn"
       animationOut="zoomOut"
-      onBackdropPress={closeModal}
+      onBackdropPress={rootStore.allowEvents ? closeModal : () => {}}
       onBackButtonPress={closeModal}
     >
-      <Container position="center" />
-      <View style={styles.content}>{body}</View>
+      <View pointerEvents={rootStore.allowEvents ? "auto" : "none"} style={styles.content}>{body}</View>
     </Modal>
   );
 };
