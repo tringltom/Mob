@@ -48,9 +48,12 @@ export default class UserStore {
 
   register = async (values: IUserFormValues) => {
     try {
+      this.rootStore.freezeScreen();
       await agent.User.register(values);
+      this.rootStore.unfreezeScreen();
       this.rootStore.modalStore.closeModal();
     } catch (error) {
+      this.rootStore.unfreezeScreen();
       throw error;
     }
   };

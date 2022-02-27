@@ -1,6 +1,7 @@
 import { ErrorMessage, Formik } from 'formik';
-import React, { useContext } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useContext, useRef } from 'react';
+import { StyleSheet, Text, View, TextInput as RNTextInput } from 'react-native';
+import TextInput from '../../form/TextInput';
 import { combineValidators, isRequired } from 'revalidate';
 import { RootStoreContext } from '../../stores/rootStore';
 import { Button } from '@muratoner/semantic-ui-react-native';
@@ -11,20 +12,23 @@ const validate = combineValidators({
     userName: isRequired({ message: "Korisničko ime je neophodno" }),
   });
 
+
+
 const RegisterForm = () => {
     const rootStore = useContext(RootStoreContext);
     const { register } = rootStore.userStore;
+    const userNameRef = useRef<RNTextInput>();
+    const passwordRef = useRef<RNTextInput>();
+
     return (
       <>
         <Text style={{ fontSize: 48 }}>Dobrodošli</Text>
         <Formik initialValues={{ email: "",  userName: "", password: ""}} 
-            onSubmit = 
-            {
-              (values, actions) => {
-                console.log("Asd");
+            onSubmit = {(values, actions) => {
                 register(values).catch((error) => {
-                    actions.setFieldError("general", error.message);
-            }) }
+                    console.log(error);
+                    //actions.setFieldError("general", error.message);
+            }).then(()=> { console.log("registered")})}
             }
             validate={validate}>
         {({
@@ -38,37 +42,50 @@ const RegisterForm = () => {
           isValid,
           isSubmitting,
         }) => (
-          <View>
+          <View style={styles.view}>
             <TextInput
+              onSubmitEditing={() => userNameRef.current?.focus()}
+              returnKeyType="next"
+              returnKeyLabel="next"
+              error={errors.email}
+              touched={touched.email}
               placeholder="Email adresa"
               autoCorrect={false}
               autoCapitalize="none"
-              style={styles.input}
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
               value={values.email}
+              blurOnSubmit={false}
             />
-            <ErrorMessage name="email" render={msg => <Text>{msg}</Text>} />
             <TextInput
+              onSubmitEditing={() => passwordRef.current?.focus()}
+              returnKeyType="next"
+              returnKeyLabel="next"
+              error={errors.userName}
+              touched={touched.userName}
               placeholder="Korisničko ime"
               autoCorrect={false}
               autoCapitalize="none"
-              style={styles.input}
+              ref={userNameRef}
               onChangeText={handleChange("userName")}
               onBlur={handleBlur("userName")}
               value={values.userName}
+              blurOnSubmit={false}
             />
-            <ErrorMessage name="userName" render={msg => <Text>{msg}</Text>} />
             <TextInput
+              returnKeyType="go"
+              returnKeyLabel="go"
+              error={errors.password}
+              touched={touched.password}
               placeholder="Lozinka"
               autoCorrect={false}
               autoCapitalize="none"
-              style={styles.input}
+              ref={passwordRef}
               onChangeText={handleChange("password")}
               onBlur={handleBlur("password")}
               value={values.password}
+              blurOnSubmit={false}
             />
-            <ErrorMessage name="password" render={msg => <Text>{msg}</Text>} />
             <Button
               title="Potvrdi"
               color="primary"
@@ -84,12 +101,8 @@ const RegisterForm = () => {
 };
 
 const styles = StyleSheet.create({
-    input: {
-        margin: 5,
-        borderColor: 'black',
-        borderWidth: 1,
-        minWidth: "60%",
-        padding: 4
+    view: {
+        minWidth: "60%"
       }
 });
 
