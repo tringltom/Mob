@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { TextInput, View, Text } from 'react-native';
+import {  View, Text } from 'react-native';
 import { Formik } from 'formik';
 import { RootStoreContext } from '../../stores/rootStore';
 import { combineValidators, isRequired } from "revalidate";
 import { Button } from '@muratoner/semantic-ui-react-native';
+import TextInput  from '../../form/TextInput';
 
 const validate = combineValidators({
   email: isRequired({ message: "Email adresa je neophodna" }),
@@ -38,13 +39,18 @@ export const LoginForm = () => {
           isSubmitting,
         }) => (
           <View>
+            
             <TextInput
               onChangeText={handleChange("email")}
+              //placeholder = "EMAIL"
+              
               onBlur={handleBlur("email")}
               value={values.email}
             />
             <TextInput
               onChangeText={handleChange("password")}
+             //placeholder = "PASSWORD"
+              keyboardType='visible-password'
               onBlur={handleBlur("password")}
               value={values.password}
             />
