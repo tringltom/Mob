@@ -30,7 +30,7 @@ const linking = {
   prefixes:[prefix],
   config: {
    screens:{
-     Arena: "arena"
+     VerifyEmail: "verifyEmail"
    }
   }
 }
@@ -249,13 +249,15 @@ const App = () => {
             }}
           />
         )}
-        <Stack.Screen
-            name="Arena"
-            component={ArenaScreen}
+        {
+        // Uncomment when verifyEmail is created to test for deepLink
+        /* <Stack.Screen
+            name="verifyEmail"
+            component={VerifyEmail}
             options={{
               headerShown: false,
             }}
-          />
+          /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
