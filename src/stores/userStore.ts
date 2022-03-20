@@ -52,6 +52,7 @@ export default class UserStore {
       await agent.User.register(values);
       this.rootStore.unfreezeScreen();
       this.rootStore.modalStore.closeModal();
+      // history.push(`/users/registerSuccess?email=${values.email}`);
     } catch (error) {
       this.rootStore.unfreezeScreen();
       throw error;

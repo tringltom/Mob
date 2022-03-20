@@ -24,11 +24,10 @@ const RegisterForm = () => {
       <>
         <Text style={{ fontSize: 48 }}>Dobrodošli</Text>
         <Formik initialValues={{ email: "",  userName: "", password: ""}} 
-            onSubmit = {(values, actions) => {
+            onSubmit = {(values) => {
                 register(values).catch((error) => {
                     console.log(error);
-                    //actions.setFieldError("general", error.message);
-            }).then(()=> { console.log("registered")})}
+            })}
             }
             validate={validate}>
         {({
@@ -85,6 +84,7 @@ const RegisterForm = () => {
               onBlur={handleBlur("password")}
               value={values.password}
               blurOnSubmit={false}
+              secureTextEntry={true}
             />
             <Button
               title="Potvrdi"
