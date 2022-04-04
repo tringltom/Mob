@@ -1,7 +1,9 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import agent from "../api/agent";
 import { IUser, IUserFormValues } from "../models/user";
+import { makeAutoObservable, runInAction } from "mobx";
+
 import { RootStore } from "./rootStore";
+import agent from "../api/agent";
+import { navigate } from "../navigationRef";
 
 export default class UserStore {
   rootStore: RootStore;
@@ -24,6 +26,7 @@ export default class UserStore {
       this.rootStore.modalStore.closeModal();
     } catch (error) {
       this.rootStore.unfreezeScreen();
+      console.log(error)
       throw error;
     }
   };
@@ -50,9 +53,11 @@ export default class UserStore {
     try {
       this.rootStore.freezeScreen();
       await agent.User.register(values);
-      this.rootStore.unfreezeScreen();
-      this.rootStore.modalStore.closeModal();
-      // history.push(`/users/registerSuccess?email=${values.email}`);
+      runInAction(() => {
+        this.rootStore.unfreezeScreen();
+        this.rootStore.modalStore.closeModal();
+        navigate("RegisterSuccess", values.email);
+      });
     } catch (error) {
       this.rootStore.unfreezeScreen();
       throw error;

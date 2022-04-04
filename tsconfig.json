@@ -3,6 +3,10 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "target": "es5",
+    "lib": [
+      "es2019"
+    ]
   }
 }
