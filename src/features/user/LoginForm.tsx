@@ -1,29 +1,44 @@
-import React, { useContext } from 'react';
-import {  View, Text } from 'react-native';
-import { Formik } from 'formik';
+import React, { useContext, useRef } from 'react';
+import { StyleSheet, Text, View, TextInput as RNTextInput, Image } from 'react-native';
+import { ErrorMessage, Formik } from 'formik';
 import { RootStoreContext } from '../../stores/rootStore';
 import { combineValidators, isRequired } from "revalidate";
 import { Button } from '@muratoner/semantic-ui-react-native';
 import TextInput  from '../../form/TextInput';
+import Spacer from '../../form/Spacer';
+
+
+
 
 const validate = combineValidators({
   email: isRequired({ message: "Email adresa je neophodna" }),
   password: isRequired({ message: "Lozinka je neophodna" }),
 });
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const rootStore = useContext(RootStoreContext);
   const { login } = rootStore.userStore;
-  
+  const emailRef = useRef<RNTextInput>();
+  const passwordRef = useRef<RNTextInput>();
+  //const image = require('assets');
+
   return (
     <>
+    {/* <Image source={{uri: '/assets/LogInEkvitiLogo.png'}} />   */}
+    <Image source={require("../../../assets/LogInEkvitiLogo.png")} />
       <Text>Dobrodošli nazad.</Text>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values, actions) =>
-          login(values).catch((error) => {
-            actions.setFieldError("general", error.message);
-          })
+          login(values)
+            .catch((error) => {
+              console.log("Usao u error?");
+              console.log(error);
+              actions.setFieldError("general", error.message);
+            })
+            .then(() => {
+              console.log("Login prosao");
+            })
         }
         validate={validate}
       >
@@ -38,27 +53,45 @@ export const LoginForm = () => {
           isValid,
           isSubmitting,
         }) => (
-          <View>
-            
+          <View style={styles.modalStyle}>
             <TextInput
+              icon='mail'
+              returnKeyType="next"
+              returnKeyLabel="next"
+              error={errors.email}
+              ref={emailRef}
+              touched={touched.email}
+              placeholder="E-mail"
+              autoCorrect={false}
+              autoCapitalize="none"
               onChangeText={handleChange("email")}
-              //placeholder = "EMAIL"
-              
               onBlur={handleBlur("email")}
               value={values.email}
+              blurOnSubmit={false}
+              keyboardType="email-address"
             />
             <TextInput
+              icon='lock-closed'
               onChangeText={handleChange("password")}
-             //placeholder = "PASSWORD"
-              keyboardType='visible-password'
+              returnKeyType="go"
+              returnKeyLabel="go"
+              error={errors.password}
+              touched={touched.password}
+              placeholder="Lozinka"
+              autoCorrect={false}
+              autoCapitalize="none"
+              ref={passwordRef}
               onBlur={handleBlur("password")}
               value={values.password}
+              blurOnSubmit={false}
+              keyboardType="visible-password"
             />
             <Button
-              title="Submit"
+              title="Prijavi se"
               color="primary"
               onPress={handleSubmit}
               loading={isSubmitting}
+              disabled={!isValid || !dirty}
             />
           </View>
         )}
@@ -66,3 +99,14 @@ export const LoginForm = () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  modalStyle: {
+    minWidth: "80%",
+    backgroundColor: "white",
+  },
+  formStyle: {
+    backgroundColor: "white",
+  }
+})
+export default LoginForm;

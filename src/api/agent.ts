@@ -6,7 +6,7 @@ import { IActivitiesEnvelope, IActivityFormValues } from "../models/activity";
 import { IDiceResult } from "../models/diceResult";
 
 axios.defaults.baseURL = process.env.NODE_ENV !== 'production'
-? "http://192.168.0.33:4001"
+? "http://192.168.0.26:4001"
 : "https://ekviti.rs/api";
 
 axios.interceptors.request.use(
