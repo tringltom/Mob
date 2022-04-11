@@ -24,7 +24,7 @@ const LoginForm = () => {
 
   return (
     <>
-    {/* <Image source={{uri: '/assets/LogInEkvitiLogo.png'}} />   */}
+    
     <Image source={require("../../../assets/LogInEkvitiLogo.png")} />
       <Text>Dobrodošli nazad.</Text>
       <Formik
@@ -93,6 +93,13 @@ const LoginForm = () => {
               loading={isSubmitting}
               disabled={!isValid || !dirty}
             />
+            {/* posle merga povuci promene ovde ce se prikazivati error msg */}
+             {/* {typeof errors === "string" && (
+              <>
+                <Spacer />
+                <ErrorMessage errors={errors}></ErrorMessage>
+              </>
+            )} */}
           </View>
         )}
       </Formik>

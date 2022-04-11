@@ -16,6 +16,7 @@ const WelcomeScreen = () => {
     <>
       <Text style={{ fontSize: 48 }}>Welcome screen</Text>
       <Button
+        style={{ justifyContent: "center", alignItems: "center" }}
         title="Prijavi se"
         color="primary"
         onPress={() => openModal(<LoginForm />)}
