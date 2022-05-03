@@ -68,30 +68,31 @@ const LoginForm = () => {
               returnKeyType="next"
               returnKeyLabel="next"
               error={errors.email}
-              ref={emailRef}
               touched={touched.email}
+              ref={emailRef}
               placeholder="E-mail"
               autoCorrect={false}
               autoCapitalize="none"
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
+              onSubmitEditing={() =>  emailRef.current?.focus()}
               value={values.email}
               blurOnSubmit={false}
-              secureTextEntry={true}
               keyboardType="email-address"
             /> 
             <TextInput
               icon='lock-closed'
-              onChangeText={handleChange("password")}
               returnKeyType="go"
               returnKeyLabel="go"
               error={errors.password}
               touched={touched.password}
+              ref={passwordRef}
               placeholder="Lozinka"
               autoCorrect={false}
               autoCapitalize="none"
-              ref={passwordRef}
+              onChangeText={handleChange("password")}
               onBlur={handleBlur("password")}
+              onSubmitEditing={() =>  passwordRef.current?.focus()}
               value={values.password}
               blurOnSubmit={false}
               secureTextEntry={true}
