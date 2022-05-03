@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TextInput as RNTextInput, Image } from 'react-native';
 import { ErrorMessage, Formik } from 'formik';
 import { RootStoreContext } from '../../stores/rootStore';
@@ -19,6 +19,15 @@ const LoginForm = () => {
   const emailRef = useRef<RNTextInput>();
   const passwordRef = useRef<RNTextInput>();
 
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
   return (
     <>
     
@@ -29,12 +38,15 @@ const LoginForm = () => {
         onSubmit={(values, actions) =>
           login(values)
             .catch((error) => {
-              console.log("Usao u error?");
+              console.log("Usao u error");
               console.log(error);
-              actions.setFieldError("general", error.message);
+              //actions.setFieldError("general", error.message);
+              actions.setErrors(error.response.request._response);
             })
-            .then(() => {
+            .finally(() => {
               console.log("Login prosao");
+              if (isMounted.current === true)
+                actions.setSubmitting(false);
             })
         }
         validate={validate}
