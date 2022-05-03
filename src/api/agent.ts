@@ -1,9 +1,12 @@
-import axios, { AxiosResponse } from "axios";
-import { IUser, IUserFormValues } from "../models/user";
-import { Toast } from "toastify-react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Linking from 'expo-linking';
+
 import { IActivitiesEnvelope, IActivityFormValues } from "../models/activity";
+import { IUser, IUserFormValues } from "../models/user";
+import axios, { AxiosResponse } from "axios";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IDiceResult } from "../models/diceResult";
+import { Toast } from "toastify-react-native";
 
 axios.defaults.baseURL = process.env.NODE_ENV !== 'production'
 ? "http://192.168.0.26:4001"
@@ -34,6 +37,8 @@ axios.interceptors.response.use((response) => {
 
 const responseBody = (response: AxiosResponse) => response.data;
 
+const prefix = Linking.makeUrl('/');
+
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),
   post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
@@ -51,7 +56,11 @@ const User = {
   login: (user: IUserFormValues): Promise<IUser> =>
     requests.post("/users/login", user) as Promise<IUser>,
   register: (user: IUserFormValues): Promise<IUser> =>
-    requests.post("/users/register", user) as Promise<IUser>,
+    requests.post(`/users/register?prefix=${prefix}`, user) as Promise<IUser>,
+  resendVerifyEmailConfirm: (email: any): Promise<void> =>
+    requests.get(`/users/resendEmailVerification?email=${email}&prefix=${prefix}`) as Promise<void>,
+  verifyEmail: (token: string, email: string): Promise<void> =>
+    requests.post("/users/verifyEmail", { token, email }) as Promise<void>,
 };
 
 const Activity = {

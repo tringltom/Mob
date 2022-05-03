@@ -5,8 +5,6 @@ import { RootStoreContext } from '../../stores/rootStore';
 import { combineValidators, isRequired } from "revalidate";
 import { Button } from '@muratoner/semantic-ui-react-native';
 import TextInput  from '../../form/TextInput';
-import Spacer from '../../form/Spacer';
-
 
 
 
@@ -20,7 +18,6 @@ const LoginForm = () => {
   const { login } = rootStore.userStore;
   const emailRef = useRef<RNTextInput>();
   const passwordRef = useRef<RNTextInput>();
-  //const image = require('assets');
 
   return (
     <>
@@ -68,8 +65,9 @@ const LoginForm = () => {
               onBlur={handleBlur("email")}
               value={values.email}
               blurOnSubmit={false}
+              secureTextEntry={true}
               keyboardType="email-address"
-            />
+            /> 
             <TextInput
               icon='lock-closed'
               onChangeText={handleChange("password")}
@@ -84,6 +82,7 @@ const LoginForm = () => {
               onBlur={handleBlur("password")}
               value={values.password}
               blurOnSubmit={false}
+              secureTextEntry={true}
               keyboardType="visible-password"
             />
             <Button
@@ -93,13 +92,7 @@ const LoginForm = () => {
               loading={isSubmitting}
               disabled={!isValid || !dirty}
             />
-            {/* posle merga povuci promene ovde ce se prikazivati error msg */}
-             {/* {typeof errors === "string" && (
-              <>
-                <Spacer />
-                <ErrorMessage errors={errors}></ErrorMessage>
-              </>
-            )} */}
+            
           </View>
         )}
       </Formik>

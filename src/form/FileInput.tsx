@@ -1,7 +1,9 @@
-import React, { ChangeEvent, useState } from 'react';
-import { View, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+
 import { Button, Center } from '@muratoner/semantic-ui-react-native';
+import { Image, View } from 'react-native';
+import React, { ChangeEvent, useState } from 'react';
+
 import { Toast } from "toastify-react-native";
 
 interface IProps {
@@ -28,8 +30,6 @@ const FileInput: React.FC<IProps> = ( {onChange} ) => {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(onChange);
 
     if (!result.cancelled) {
       setImagesUri([result.uri]);
