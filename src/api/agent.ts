@@ -25,15 +25,15 @@ axios.interceptors.request.use(
   }
 );
 
-axios.interceptors.response.use((response) => {
-  return response}, 
-  (error) => {
-    if (error.message === "Network Error" && !error.response)
-      setTimeout(() => {
-        Toast.error("Mrežna Greška - Servis trenutno nije dostupan");
-      }, 0);
-    throw error.response;
-});
+// axios.interceptors.response.use((response) => {
+//   return response}, 
+//   (error) => {
+//     if (error.message === "Network Error" && !error.response)
+//       setTimeout(() => {
+//         Toast.error("Mrežna Greška - Servis trenutno nije dostupan");
+//       }, 0);
+//     throw error.response;
+// });
 
 const responseBody = (response: AxiosResponse) => response.data;
 

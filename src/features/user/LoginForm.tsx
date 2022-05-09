@@ -1,10 +1,14 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, View, TextInput as RNTextInput, Image } from 'react-native';
-import { ErrorMessage, Formik } from 'formik';
+import { Formik } from 'formik';
 import { RootStoreContext } from '../../stores/rootStore';
 import { combineValidators, isRequired } from "revalidate";
-import { Button } from '@muratoner/semantic-ui-react-native';
+import { Button, Center } from '@muratoner/semantic-ui-react-native';
 import TextInput  from '../../form/TextInput';
+import Spacer from '../../form/Spacer';
+import { ErrorMessage } from '../../form/ErrorMessage';
+import { color } from 'react-native-elements/dist/helpers';
+import { EkvitiColors } from '../../layout/EkvitiColors';
 
 
 
@@ -19,6 +23,8 @@ const LoginForm = () => {
   const emailRef = useRef<RNTextInput>();
   const passwordRef = useRef<RNTextInput>();
 
+  const [showPassword, setShowPassword] = useState(true);
+
   const isMounted = useRef(false);
 
   useEffect(() => {
@@ -30,25 +36,24 @@ const LoginForm = () => {
 
   return (
     <>
-    
-    <Image source={require("../../../assets/LogInEkvitiLogo.png")} />
+      <Image source={require("../../../assets/LogInEkvitiLogo.png")}/>
       <Text>Dobrodošli nazad.</Text>
       <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values, actions) =>
+        initialValues={{
+           email: "", password: "" 
+          }}
+        onSubmit={(values, actions) => {
           login(values)
             .catch((error) => {
               console.log("Usao u error");
               console.log(error);
-              //actions.setFieldError("general", error.message);
               actions.setErrors(error.response.request._response);
             })
             .finally(() => {
-              console.log("Login prosao");
-              if (isMounted.current === true)
-                actions.setSubmitting(false);
-            })
-        }
+              if (isMounted.current === true) 
+              actions.setSubmitting(false);
+            });
+        }}
         validate={validate}
       >
         {({
@@ -64,7 +69,8 @@ const LoginForm = () => {
         }) => (
           <View style={styles.modalStyle}>
             <TextInput
-              icon='mail'
+              icon="mail"
+              onSubmitEditing={() => passwordRef.current?.focus()}
               returnKeyType="next"
               returnKeyLabel="next"
               error={errors.email}
@@ -75,13 +81,14 @@ const LoginForm = () => {
               autoCapitalize="none"
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
-              onSubmitEditing={() =>  emailRef.current?.focus()}
               value={values.email}
               blurOnSubmit={false}
               keyboardType="email-address"
-            /> 
+            />
             <TextInput
-              icon='lock-closed'
+              icon="lock-closed"
+              //onSubmitEditing={() => emailRef.current?.focus()} straight to handle submit or loop email>pass>email?
+              onSubmitEditing={() => handleSubmit()}
               returnKeyType="go"
               returnKeyLabel="go"
               error={errors.password}
@@ -92,20 +99,26 @@ const LoginForm = () => {
               autoCapitalize="none"
               onChangeText={handleChange("password")}
               onBlur={handleBlur("password")}
-              onSubmitEditing={() =>  passwordRef.current?.focus()}
               value={values.password}
               blurOnSubmit={false}
               secureTextEntry={true}
-              keyboardType="visible-password"
+              accessibilityHint="wat?"
             />
+            
             <Button
               title="Prijavi se"
               color="primary"
               onPress={handleSubmit}
               loading={isSubmitting}
               disabled={!isValid || !dirty}
+              style={{backgroundColor: EkvitiColors.primary}}
             />
-            
+            {typeof errors === "string" && (
+              <>
+                <Spacer />
+                <ErrorMessage errors={errors}></ErrorMessage>
+              </>
+            )}
           </View>
         )}
       </Formik>
@@ -118,8 +131,5 @@ const styles = StyleSheet.create({
     minWidth: "80%",
     backgroundColor: "white",
   },
-  formStyle: {
-    backgroundColor: "white",
-  }
 })
 export default LoginForm;

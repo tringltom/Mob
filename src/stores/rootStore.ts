@@ -42,7 +42,7 @@ export class RootStore {
         toValue: 1,
         duration: 2200,
         easing: Easing.linear,
-        useNativeDriver: true,
+        useNativeDriver: true, // potential prob
       })
     ).start();
 
