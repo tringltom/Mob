@@ -19,7 +19,7 @@ const WelcomeScreen = () => {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
       <Text style={{ fontSize: 48 }}>Welcome screen</Text>
       <Button
-        style={{ justifyContent: "center", alignItems: "center",backgroundColor: EkvitiColors.primary }}
+        style={{ justifyContent: "center", alignItems: "center", backgroundColor: EkvitiColors.primary }}
         title="Prijavi se"
         onPress={() => openModal(<LoginForm />)}
       />

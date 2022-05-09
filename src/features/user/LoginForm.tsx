@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TextInput as RNTextInput, Image } from 'react-native';
 import { Formik } from 'formik';
 import { RootStoreContext } from '../../stores/rootStore';
 import { combineValidators, isRequired } from "revalidate";
-import { Button, Center } from '@muratoner/semantic-ui-react-native';
+import { Button } from '@muratoner/semantic-ui-react-native';
 import TextInput  from '../../form/TextInput';
 import Spacer from '../../form/Spacer';
 import { ErrorMessage } from '../../form/ErrorMessage';
-import { color } from 'react-native-elements/dist/helpers';
 import { EkvitiColors } from '../../layout/EkvitiColors';
 
 
@@ -22,8 +21,6 @@ const LoginForm = () => {
   const { login } = rootStore.userStore;
   const emailRef = useRef<RNTextInput>();
   const passwordRef = useRef<RNTextInput>();
-
-  const [showPassword, setShowPassword] = useState(true);
 
   const isMounted = useRef(false);
 
@@ -87,7 +84,6 @@ const LoginForm = () => {
             />
             <TextInput
               icon="lock-closed"
-              //onSubmitEditing={() => emailRef.current?.focus()} straight to handle submit or loop email>pass>email?
               onSubmitEditing={() => handleSubmit()}
               returnKeyType="go"
               returnKeyLabel="go"
@@ -102,7 +98,6 @@ const LoginForm = () => {
               value={values.password}
               blurOnSubmit={false}
               secureTextEntry={true}
-              accessibilityHint="wat?"
             />
             
             <Button
