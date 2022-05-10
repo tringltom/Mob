@@ -33,22 +33,20 @@ const LoginForm = () => {
 
   return (
     <>
-      <Image source={require("../../../assets/LogInEkvitiLogo.png")}/>
+      <Image source={require("../../../assets/LogInEkvitiLogo.png")} />
       <Text>Dobrodošli nazad.</Text>
       <Formik
         initialValues={{
-           email: "", password: "" 
-          }}
+          email: "",
+          password: "",
+        }}
         onSubmit={(values, actions) => {
           login(values)
             .catch((error) => {
-              console.log("Usao u error");
-              console.log(error);
               actions.setErrors(error.response.request._response);
             })
             .finally(() => {
-              if (isMounted.current === true) 
-              actions.setSubmitting(false);
+              if (isMounted.current === true) actions.setSubmitting(false);
             });
         }}
         validate={validate}
@@ -99,14 +97,14 @@ const LoginForm = () => {
               blurOnSubmit={false}
               secureTextEntry={true}
             />
-            
+
             <Button
               title="Prijavi se"
               color="primary"
               onPress={handleSubmit}
               loading={isSubmitting}
               disabled={!isValid || !dirty}
-              style={{backgroundColor: EkvitiColors.primary}}
+              style={{ backgroundColor: EkvitiColors.primary }}
             />
             {typeof errors === "string" && (
               <>
