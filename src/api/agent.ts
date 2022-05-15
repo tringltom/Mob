@@ -9,7 +9,7 @@ import { IDiceResult } from "../models/diceResult";
 import { Toast } from "toastify-react-native";
 
 axios.defaults.baseURL = process.env.NODE_ENV !== 'production'
-? "http://192.168.0.15:4001"
+? "http://192.168.0.26:4001"
 : "https://ekviti.rs/api";
 
 axios.interceptors.request.use(

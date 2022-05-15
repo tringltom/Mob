@@ -7,6 +7,7 @@ import agent from "../../api/agent";
 import queryString from "query-string";
 import { toast } from "react-toastify";
 import { useRoute } from "@react-navigation/native";
+import { EkvitiColors } from "../../layout/EkvitiColors";
 
 const RegisterSuccess = () => {
 
@@ -35,7 +36,7 @@ const RegisterSuccess = () => {
       <Button
         onPress={handleConfirmEmailResend}
         title="Ponovo pošalji potvrdu"
-        color="primary"
+        style={{backgroundColor: EkvitiColors.primary}}
       />
     </View>
   );

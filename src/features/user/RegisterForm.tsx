@@ -8,6 +8,7 @@ import { ErrorMessage } from '../../form/ErrorMessage';
 import { RootStoreContext } from '../../stores/rootStore';
 import Spacer from '../../form/Spacer';
 import TextInput from '../../form/TextInput';
+import { EkvitiColors } from '../../layout/EkvitiColors';
 
 const validate = combineValidators({
     email: isRequired({ message: "Email adresa je neophodna" }),
@@ -135,7 +136,7 @@ const RegisterForm = () => {
             />
             <Button
               title="Potvrdi"
-              color="primary"
+              style={{backgroundColor: EkvitiColors.primary}}
               onPress={handleSubmit}
               loading={isSubmitting}
               disabled={!isValid || !dirty}
