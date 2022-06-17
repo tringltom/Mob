@@ -17,7 +17,7 @@ const RegisterSuccess = () => {
   const route = useRoute();
 
   const handleConfirmEmailResend = () => {
-    agent.User.resendVerifyEmailConfirm(route.params)
+    agent.Session.sendEmailVerification(route.params as unknown as string)
       .then(() => {
         //toast.success("Potvrda je poslata - molimo Vas da proverite poštu");
       })

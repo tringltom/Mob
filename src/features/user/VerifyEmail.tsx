@@ -32,7 +32,7 @@ const VerifyEmail = ({}) => {
   const {email, token} = route.params as IParams;
   
   useEffect(() => {
-    agent.User.verifyEmail(token as string, email as string)
+    agent.Session.verifyEmail(token as string, email as string)
       .then(() => {
         SetStatus(Status.Success);
       })
@@ -42,7 +42,7 @@ const VerifyEmail = ({}) => {
   }, [Status.Failed, Status.Success, token, email]);
 
   const handleConfirmEmailResend = () => {
-    agent.User.resendVerifyEmailConfirm(email as string)
+    agent.Session.sendEmailVerification(email as string)
       .then(() => {
         //toast.success("Potvrda je poslata - molimo Vas da proverite poštu");
       })
