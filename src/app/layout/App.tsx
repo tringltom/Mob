@@ -70,7 +70,6 @@ const RightDrawerNav = () => {
   const rootStore = useContext(RootStoreContext);
   const { user } = rootStore.userStore;
   
-  console.log(user)
   return (
     <ActivityDrawer.Navigator
       screenOptions={{
