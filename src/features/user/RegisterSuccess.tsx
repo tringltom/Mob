@@ -1,13 +1,16 @@
 import { Image, View } from "react-native";
 
 import { Button } from "@muratoner/semantic-ui-react-native";
+import { EkvitiColors } from "../../layout/EkvitiColors";
 import React from "react";
 import { Text } from "react-native-elements";
 import agent from "../../api/agent";
 import queryString from "query-string";
-import { toast } from "react-toastify";
 import { useRoute } from "@react-navigation/native";
-import { EkvitiColors } from "../../layout/EkvitiColors";
+
+//import { toast } from "react-toastify";
+
+
 
 const RegisterSuccess = () => {
 
@@ -16,7 +19,7 @@ const RegisterSuccess = () => {
   const handleConfirmEmailResend = () => {
     agent.User.resendVerifyEmailConfirm(route.params)
       .then(() => {
-        toast.success("Potvrda je poslata - molimo Vas da proverite poštu");
+        //toast.success("Potvrda je poslata - molimo Vas da proverite poštu");
       })
       .catch((error) => console.log(error));
   };

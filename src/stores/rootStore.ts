@@ -1,12 +1,15 @@
+import { Animated, Easing } from "react-native";
 import { configure, makeAutoObservable, runInAction } from "mobx";
-import { createContext } from "react";
-import agent from "../api/agent";
+
 import ActivityStore from "./activityStore";
 import CommonStore from "./commonStore";
 import ModalStore from "./modalStore";
 import UserStore from "./userStore";
-import { Toast } from "toastify-react-native";
-import { Animated, Easing } from "react-native";
+import agent from "../api/agent";
+import { createContext } from "react";
+
+//import { Toast } from "toastify-react-native";
+
 
 configure({ enforceActions: "always" });
 
@@ -55,7 +58,7 @@ export class RootStore {
           this.showDice = false;
           this.unfreezeScreen();
           setTimeout(() => {
-            Toast.info(`${diceResult.result}: ${diceResult.message}`);
+            //Toast.info(`${diceResult.result}: ${diceResult.message}`);
           }, 0);
         });
       } catch (error) {

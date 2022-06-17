@@ -1,10 +1,12 @@
-import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect } from 'react'
-import { View } from 'react-native';
+
 import ActivityList from '../features/activities/ActivityList';
 import { ActivityListItemPlaceholder } from '../features/activities/ActivityListItemPlaceholder';
 import { RootStoreContext } from '../stores/rootStore';
-import ToastManager from 'toastify-react-native';
+import { View } from 'react-native';
+import { observer } from 'mobx-react-lite';
+
+//import ToastManager from 'toastify-react-native';
 
 const ApprovalScreen: React.FC = () => {
 
@@ -22,7 +24,7 @@ const ApprovalScreen: React.FC = () => {
         ) : (
             <ActivityList />
         )}
-        <ToastManager position="bottom" height={45} width={300} duration={3000}/>
+        {/* <ToastManager position="bottom" height={45} width={300} duration={3000}/> */}
       </View>
     );
 }

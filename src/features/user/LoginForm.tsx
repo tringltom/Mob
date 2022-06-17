@@ -1,15 +1,14 @@
+import { Image, TextInput as RNTextInput, StyleSheet, Text, View } from 'react-native';
 import React, { useContext, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TextInput as RNTextInput, Image } from 'react-native';
+import { combineValidators, isRequired } from "revalidate";
+
+import { Button } from '@muratoner/semantic-ui-react-native';
+import { EkvitiColors } from '../../layout/EkvitiColors';
+import { ErrorMessage } from '../../form/ErrorMessage';
 import { Formik } from 'formik';
 import { RootStoreContext } from '../../stores/rootStore';
-import { combineValidators, isRequired } from "revalidate";
-import { Button } from '@muratoner/semantic-ui-react-native';
-import TextInput  from '../../form/TextInput';
 import Spacer from '../../form/Spacer';
-import { ErrorMessage } from '../../form/ErrorMessage';
-import { EkvitiColors } from '../../layout/EkvitiColors';
-
-
+import TextInput  from '../../form/TextInput';
 
 const validate = combineValidators({
   email: isRequired({ message: "Email adresa je neophodna" }),
@@ -43,6 +42,7 @@ const LoginForm = () => {
         onSubmit={(values, actions) => {
           login(values)
             .catch((error) => {
+              console.log(error);
               actions.setErrors(error.response.request._response);
             })
             .finally(() => {

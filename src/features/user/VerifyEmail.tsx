@@ -2,12 +2,14 @@ import { Image, SafeAreaView, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 
 import { Button } from "@muratoner/semantic-ui-react-native";
-import { LoginForm } from "./LoginForm";
+import LoginForm from "./LoginForm";
 import { RootStoreContext } from "../../stores/rootStore";
 import agent from "../../api/agent";
 import queryString from "query-string";
-import { toast } from "react-toastify";
 import { useRoute } from "@react-navigation/native";
+
+//import { toast } from "react-toastify";
+
 
 interface IParams {
       token: string,
@@ -42,7 +44,7 @@ const VerifyEmail = ({}) => {
   const handleConfirmEmailResend = () => {
     agent.User.resendVerifyEmailConfirm(email as string)
       .then(() => {
-        toast.success("Potvrda je poslata - molimo Vas da proverite poštu");
+        //toast.success("Potvrda je poslata - molimo Vas da proverite poštu");
       })
       .catch((error) => console.log(error));
   };

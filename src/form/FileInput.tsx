@@ -4,7 +4,7 @@ import { Button, Center } from '@muratoner/semantic-ui-react-native';
 import { Image, View } from 'react-native';
 import React, { ChangeEvent, useState } from 'react';
 
-import { Toast } from "toastify-react-native";
+//import { Toast } from "toastify-react-native";
 
 interface IProps {
     onChange: (e: string | ChangeEvent<any>) => void;
@@ -19,7 +19,7 @@ const FileInput: React.FC<IProps> = ( {onChange} ) => {
 
     if (permissionResult.granted === false) {
       setTimeout(() => {
-        Toast.error("Odbili ste pristup vašim slikama..");
+        //Toast.error("Odbili ste pristup vašim slikama..");
         }, 0);
       return;
     }
@@ -42,7 +42,7 @@ const FileInput: React.FC<IProps> = ( {onChange} ) => {
 
     if (permissionResult.granted === false) {
       setTimeout(() => {
-        Toast.error("Odbili ste pristup kameri..");
+        //Toast.error("Odbili ste pristup kameri..");
         }, 0);
       return;
     }
