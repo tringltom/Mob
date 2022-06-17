@@ -1,9 +1,10 @@
-import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react'
-import { RootStoreContext } from '../../stores/rootStore';
-import { ActivityListItem } from './ActivityListItem';
 import { ActivityIndicator, View } from 'react-native';
+import React, { useContext, useState } from 'react'
+
+import { ActivityListItem } from './ActivityListItem';
 import { FlatList } from 'react-native-gesture-handler';
+import { RootStoreContext } from '../../app/stores/rootStore';
+import { observer } from 'mobx-react-lite';
 
 const ActivityList: React.FC = () => {
   const rootStore = useContext(RootStoreContext);

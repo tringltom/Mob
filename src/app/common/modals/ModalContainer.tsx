@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { StyleSheet, View } from 'react-native';
 
 import Modal from "react-native-modal";
-import { RootStoreContext } from "../stores/rootStore";
+import { RootStoreContext } from "../../stores/rootStore";
 import { observer } from "mobx-react-lite";
 
 const ModalContainer = () => {

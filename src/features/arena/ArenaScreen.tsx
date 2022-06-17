@@ -1,7 +1,7 @@
 import { Animated, TouchableOpacity } from 'react-native';
 import React, { useContext } from 'react';
 
-import { RootStoreContext } from '../stores/rootStore';
+import { RootStoreContext } from '../../app/stores/rootStore';
 import { observer } from 'mobx-react-lite';
 
 const ArenaScreen = () => {

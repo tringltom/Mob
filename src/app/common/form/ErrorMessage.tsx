@@ -1,9 +1,8 @@
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text } from "react-native";
 
-import { EkvitiColors } from "../layout/EkvitiColors";
+import { EkvitiColors } from "../../layout/EkvitiColors";
 import MarkedList from '@jsamr/react-native-li';
 import React from "react";
-import Spacer from "./Spacer";
 import disc from '@jsamr/counter-style/presets/disc';
 
 interface IProps {

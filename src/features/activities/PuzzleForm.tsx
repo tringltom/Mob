@@ -1,13 +1,13 @@
-import { ActivityTypes, IActivityFormValues } from '../../models/activity';
+import { ActivityTypes, IActivityFormValues } from '../../app/models/activity';
 import { Button, Divider, Title } from '@muratoner/semantic-ui-react-native';
 import { TextInput as RNTextInput, View } from 'react-native';
 import React, { useContext, useRef } from 'react';
 import { combineValidators, composeValidators, hasLengthLessThan, isRequired, isRequiredIf } from 'revalidate';
 
-import FileInput from '../../form/FileInput';
-import ModalYesNo from '../../modals/ModalYesNo';
-import { RootStoreContext } from '../../stores/rootStore';
-import TextInput from '../../form/TextInput';
+import FileInput from '../../app/common/form/FileInput';
+import ModalYesNo from '../../app/common/modals/ModalYesNo';
+import { RootStoreContext } from '../../app/stores/rootStore';
+import TextInput from '../../app/common/form/TextInput';
 import { observer } from 'mobx-react-lite';
 import { useFormik } from 'formik';
 

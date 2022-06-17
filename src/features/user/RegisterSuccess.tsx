@@ -1,10 +1,10 @@
 import { Image, View } from "react-native";
 
 import { Button } from "@muratoner/semantic-ui-react-native";
-import { EkvitiColors } from "../../layout/EkvitiColors";
+import { EkvitiColors } from "../../app/layout/EkvitiColors";
 import React from "react";
 import { Text } from "react-native-elements";
-import agent from "../../api/agent";
+import agent from "../../app/api/agent";
 import { useRoute } from "@react-navigation/native";
 
 const RegisterSuccess = () => {

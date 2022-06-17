@@ -1,9 +1,10 @@
-import { observer } from 'mobx-react-lite';
+import { Button, Divider, Icon, Title } from '@muratoner/semantic-ui-react-native'
 import React, { useContext } from 'react'
-import { Button, Divider, Icon, Title} from '@muratoner/semantic-ui-react-native'
-import { RootStoreContext } from '../stores/rootStore';
-import { View } from 'react-native';
+
+import { RootStoreContext } from '../../stores/rootStore';
 import { Text } from 'react-native';
+import { View } from 'react-native';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
   content : string,

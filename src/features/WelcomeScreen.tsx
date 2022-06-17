@@ -2,12 +2,13 @@ import * as Linking1 from 'expo-linking';
 
 import { Linking, StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
+
 import { Button } from '@muratoner/semantic-ui-react-native';
-import  LoginForm  from '../features/user/LoginForm';
-import RegisterForm from '../features/user/RegisterForm';
-import { RootStoreContext } from "../stores/rootStore";
+import { EkvitiColors } from '../app/layout/EkvitiColors';
+import  LoginForm  from './user/LoginForm';
+import RegisterForm from './user/RegisterForm';
+import { RootStoreContext } from "../app/stores/rootStore";
 import { observer } from "mobx-react-lite";
-import { EkvitiColors } from '../layout/EkvitiColors';
 
 const styles = StyleSheet.create({});
 

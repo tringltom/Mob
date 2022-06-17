@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 
-import ActivityList from '../features/activities/ActivityList';
-import { ActivityListItemPlaceholder } from '../features/activities/ActivityListItemPlaceholder';
-import { RootStoreContext } from '../stores/rootStore';
+import ActivityList from '../activities/ActivityList';
+import { ActivityListItemPlaceholder } from '../activities/ActivityListItemPlaceholder';
+import { RootStoreContext } from '../../app/stores/rootStore';
 import { View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 

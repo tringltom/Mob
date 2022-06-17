@@ -3,7 +3,7 @@ import { makeAutoObservable, reaction, runInAction } from "mobx";
 import { IActivityFormValues } from "../models/activity";
 import { RootStore } from "./rootStore";
 import agent from "../api/agent";
-import { navigate } from "../navigationRef";
+import { navigate } from "../../navigationRef";
 
 const LIMIT = 5;
 

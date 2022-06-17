@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { Button } from "@muratoner/semantic-ui-react-native";
 import LoginForm from "./LoginForm";
-import { RootStoreContext } from "../../stores/rootStore";
-import agent from "../../api/agent";
+import { RootStoreContext } from "../../app/stores/rootStore";
+import agent from "../../app/api/agent";
 import { useRoute } from "@react-navigation/native";
 
 interface IParams {

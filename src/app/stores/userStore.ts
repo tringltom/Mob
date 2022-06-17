@@ -3,7 +3,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 
 import { RootStore } from "./rootStore";
 import agent from "../api/agent";
-import { navigate } from "../navigationRef";
+import { navigate } from "../../navigationRef";
 
 export default class UserStore {
   rootStore: RootStore;

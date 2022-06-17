@@ -2,7 +2,7 @@ import { Icon, LabeledButton, Title } from '@muratoner/semantic-ui-react-native'
 import { TextInput as RNTextInput, StyleSheet, Text, TextInputProps, View } from 'react-native';
 import React, { forwardRef } from 'react';
 
-import { EkvitiColors } from '../layout/EkvitiColors';
+import { EkvitiColors } from '../../layout/EkvitiColors';
 import Spacer from './Spacer';
 
 interface IProps extends TextInputProps{

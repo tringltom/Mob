@@ -3,12 +3,12 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { combineValidators, isRequired } from "revalidate";
 
 import { Button } from '@muratoner/semantic-ui-react-native';
-import { EkvitiColors } from '../../layout/EkvitiColors';
-import { ErrorMessage } from '../../form/ErrorMessage';
+import { EkvitiColors } from '../../app/layout/EkvitiColors';
+import { ErrorMessage } from '../../app/common/form/ErrorMessage';
 import { Formik } from 'formik';
-import { RootStoreContext } from '../../stores/rootStore';
-import Spacer from '../../form/Spacer';
-import TextInput  from '../../form/TextInput';
+import { RootStoreContext } from '../../app/stores/rootStore';
+import Spacer from '../../app/common/form/Spacer';
+import TextInput  from '../../app/common/form/TextInput';
 
 const validate = combineValidators({
   email: isRequired({ message: "Email adresa je neophodna" }),

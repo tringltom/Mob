@@ -1,7 +1,8 @@
-import { Avatar } from '@muratoner/semantic-ui-react-native';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { RootStoreContext } from '../../stores/rootStore';
+
+import { Avatar } from '@muratoner/semantic-ui-react-native';
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 const styles = StyleSheet.create({});
 
@@ -19,7 +20,7 @@ export const ProfileAbout = () => {
             size={100}
           />
           <Text style={{ textAlignVertical: "center", marginLeft: 10 }}>
-            {user?.username}
+            {user?.userName}
           </Text>
           <Text style={{ textAlignVertical: "center", marginLeft: 10 }}>
             Nivo: {user?.currentLevel}
