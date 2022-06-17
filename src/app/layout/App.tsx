@@ -1,5 +1,6 @@
 import 'react-native-gesture-handler';
 
+import * as Expo from 'expo'
 import * as Linking from 'expo-linking';
 
 import { Avatar, Button, Icon } from '@muratoner/semantic-ui-react-native';
@@ -78,7 +79,7 @@ const RightDrawerNav = () => {
         drawerPosition: "left",
         headerRight: () => (
           <View style={{flexDirection: 'row'}}>
-            <Avatar containerStyle={{marginRight: 5, marginTop: 5}} source={require('./assets/user.png')} />
+            <Avatar containerStyle={{marginRight: 5, marginTop: 5}} source={require('../../../assets/user.png')} />
             <Button style={{marginRight: 4}} title={user?.userName} color="secondary" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
           </View>
         ),
@@ -295,4 +296,4 @@ const App = () => {
   );
 }
 
-export default observer(App);
+export default Expo.registerRootComponent(observer(App));

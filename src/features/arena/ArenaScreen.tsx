@@ -30,7 +30,7 @@ const ArenaScreen = () => {
         >
           <Animated.Image
             style={[{ width: 70, height: 70 }, animatedStyle]}
-            source={require("../../assets/d20.png")}
+            source={require("../../../assets/d20.png")}
           ></Animated.Image>
         </TouchableOpacity>
       )}
