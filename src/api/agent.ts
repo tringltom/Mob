@@ -9,7 +9,7 @@ import { IDiceResult } from "../models/diceResult";
 
 axios.defaults.baseURL = process.env.NODE_ENV !== 'production'
 ? "http://192.168.0.15:4001"
-: "https://ekviti.rs/api";
+: "https://ekvitiapi.azurewebsites.net";
 
 axios.interceptors.request.use(
   async config => {
