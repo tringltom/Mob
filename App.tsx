@@ -22,6 +22,7 @@ import PuzzleForm from './src/features/activities/PuzzleForm';
 import QuoteForm from './src/features/activities/QuoteForm';
 import RegisterSuccess from './src/features/user/RegisterSuccess';
 import { RootStoreContext } from './src/stores/rootStore';
+import Toast from "react-native-toast-notifications";
 import VerifyEmail from './src/features/user/VerifyEmail';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -68,7 +69,7 @@ const RightDrawerNav = () => {
   const rootStore = useContext(RootStoreContext);
   const { user } = rootStore.userStore;
   
-
+  console.log(user)
   return (
     <ActivityDrawer.Navigator
       screenOptions={{
@@ -78,7 +79,7 @@ const RightDrawerNav = () => {
         headerRight: () => (
           <View style={{flexDirection: 'row'}}>
             <Avatar containerStyle={{marginRight: 5, marginTop: 5}} source={require('./assets/user.png')} />
-            <Button style={{marginRight: 4}} title={user?.username} color="secondary" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
+            <Button style={{marginRight: 4}} title={user?.userName} color="secondary" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
           </View>
         ),
       }}
@@ -289,6 +290,7 @@ const App = () => {
             }}
           />
       </Stack.Navigator>
+      <Toast ref={(ref: any) => global['toast'] = ref} />
     </NavigationContainer>
   );
 }

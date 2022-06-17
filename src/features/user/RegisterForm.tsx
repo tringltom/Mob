@@ -4,11 +4,11 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { combineValidators, composeValidators, isRequired, matchesField } from 'revalidate';
 
 import { Button } from '@muratoner/semantic-ui-react-native';
+import { EkvitiColors } from '../../layout/EkvitiColors';
 import { ErrorMessage } from '../../form/ErrorMessage';
 import { RootStoreContext } from '../../stores/rootStore';
 import Spacer from '../../form/Spacer';
 import TextInput from '../../form/TextInput';
-import { EkvitiColors } from '../../layout/EkvitiColors';
 
 const validate = combineValidators({
     email: isRequired({ message: "Email adresa je neophodna" }),
@@ -52,7 +52,7 @@ const RegisterForm = () => {
         onSubmit={(values, actions) => {
           register(values)
             .catch((error) => {
-              actions.setErrors(error.response.request._response);
+              actions.setErrors(error.request._response);
             })
             .finally(() => {
               if (isMounted.current === true)

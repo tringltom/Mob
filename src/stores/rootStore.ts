@@ -8,9 +8,6 @@ import UserStore from "./userStore";
 import agent from "../api/agent";
 import { createContext } from "react";
 
-//import { Toast } from "toastify-react-native";
-
-
 configure({ enforceActions: "always" });
 
 export class RootStore {
@@ -58,7 +55,7 @@ export class RootStore {
           this.showDice = false;
           this.unfreezeScreen();
           setTimeout(() => {
-            //Toast.info(`${diceResult.result}: ${diceResult.message}`);
+            globalThis.toast.show(`${diceResult.result}: ${diceResult.message}`, {type: "normal"});
           }, 0);
         });
       } catch (error) {

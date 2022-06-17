@@ -1,14 +1,8 @@
-import { Animated, Easing, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { Image, View } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
+import { Animated, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
 
 import { RootStoreContext } from '../stores/rootStore';
 import { observer } from 'mobx-react-lite';
-
-//import Container from "toastify-react-native";
-
-
-
 
 const ArenaScreen = () => {
 
@@ -40,7 +34,6 @@ const ArenaScreen = () => {
           ></Animated.Image>
         </TouchableOpacity>
       )}
-      {/* <Container position="bottom" height={45} width={300} duration={3000} /> */}
     </>
   );
 };

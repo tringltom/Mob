@@ -43,7 +43,7 @@ const LoginForm = () => {
           login(values)
             .catch((error) => {
               console.log(error);
-              actions.setErrors(error.response.request._response);
+              actions.setErrors(error.request._response);
             })
             .finally(() => {
               if (isMounted.current === true) actions.setSubmitting(false);

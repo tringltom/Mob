@@ -6,8 +6,6 @@ import { RootStoreContext } from '../stores/rootStore';
 import { View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
-//import ToastManager from 'toastify-react-native';
-
 const ApprovalScreen: React.FC = () => {
 
     const rootStore = useContext(RootStoreContext);
@@ -22,9 +20,8 @@ const ApprovalScreen: React.FC = () => {
         {loadingInitial && page === 0 ? (
           <ActivityListItemPlaceholder />
         ) : (
-            <ActivityList />
+          <ActivityList />
         )}
-        {/* <ToastManager position="bottom" height={45} width={300} duration={3000}/> */}
       </View>
     );
 }

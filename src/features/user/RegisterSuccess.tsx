@@ -5,12 +5,7 @@ import { EkvitiColors } from "../../layout/EkvitiColors";
 import React from "react";
 import { Text } from "react-native-elements";
 import agent from "../../api/agent";
-import queryString from "query-string";
 import { useRoute } from "@react-navigation/native";
-
-//import { toast } from "react-toastify";
-
-
 
 const RegisterSuccess = () => {
 
@@ -19,7 +14,7 @@ const RegisterSuccess = () => {
   const handleConfirmEmailResend = () => {
     agent.Session.sendEmailVerification(route.params as unknown as string)
       .then(() => {
-        //toast.success("Potvrda je poslata - molimo Vas da proverite poštu");
+        globalThis.toast.show("Potvrda je poslata - molimo Vas da proverite poštu", {type: "success"});
       })
       .catch((error) => console.log(error));
   };

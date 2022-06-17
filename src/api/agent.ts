@@ -1,6 +1,6 @@
 import * as Linking from 'expo-linking';
 
-import { IActivitiesEnvelope, IActivity, IActivityFormValues, IPendingActivitiesEnvelope, IPendingActivity } from "../models/activity";
+import { IActivity, IActivityFormValues, IPendingActivitiesEnvelope, IPendingActivity } from "../models/activity";
 import { IUser, IUserFormValues } from "../models/user";
 import axios, { AxiosResponse } from "axios";
 
@@ -29,7 +29,7 @@ axios.interceptors.response.use((response) => {
   (error) => {
     if (error.message === "Network Error" && !error.response)
       setTimeout(() => {
-        //Toast.error("Mrežna Greška - Servis trenutno nije dostupan");
+        globalThis.toast.show("Mrežna Greška - Servis trenutno nije dostupan", {type: "danger"});
       }, 0);
     throw error.response;
 });

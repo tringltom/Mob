@@ -5,9 +5,6 @@ import { RootStore } from "./rootStore";
 import agent from "../api/agent";
 import { navigate } from "../navigationRef";
 
-//import { Toast } from "toastify-react-native";
-
-
 const LIMIT = 5;
 
 export default class ActivityStore {
@@ -68,7 +65,7 @@ export default class ActivityStore {
         this.rootStore.unfreezeScreen();
         navigate("Arena");
         setTimeout(() => {
-          //Toast.success(message);
+          globalThis.toast.show("Uspešno kreiranje, molimo Vas da sačekate odobrenje", {type: "success"});
         }, 0);
       });
     } catch (error) {
@@ -76,7 +73,7 @@ export default class ActivityStore {
       this.rootStore.unfreezeScreen();
       navigate("Arena");
       setTimeout(() => {
-        //Toast.error("Došlo je do greške, molimo Vas pokušajte ponovo..");
+        globalThis.toast.show("Došlo je do greške, molimo Vas pokušajte ponovo..", {type: "danger"});
       }, 0);
     }
   };
@@ -118,7 +115,7 @@ export default class ActivityStore {
       this.rootStore.unfreezeScreen();
       this.rootStore.modalStore.closeModal();
       setTimeout(() => {
-        //Toast.error("Neuspešno, proverite konzolu");
+        globalThis.toast.show("Neuspešno, proverite konzolu", {type: "danger"});
       }, 0);
     }
   };
