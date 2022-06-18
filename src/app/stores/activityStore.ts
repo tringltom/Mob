@@ -1,9 +1,9 @@
 import { makeAutoObservable, reaction, runInAction } from "mobx";
-import agent from "../api/agent";
+
 import { IActivityFormValues } from "../models/activity";
 import { RootStore } from "./rootStore";
-import { Toast } from "toastify-react-native";
-import { navigate } from "../navigationRef";
+import agent from "../api/agent";
+import { navigate } from "../../navigationRef";
 
 const LIMIT = 5;
 
@@ -59,13 +59,13 @@ export default class ActivityStore {
   create = async (values: IActivityFormValues) => {
     try {
       this.rootStore.freezeScreen();
-      const message = await agent.Activity.create(values);
+      await agent.PendingActivity.create(values);
       runInAction(() => {
         this.rootStore.modalStore.closeModal();
         this.rootStore.unfreezeScreen();
         navigate("Arena");
         setTimeout(() => {
-          Toast.success(message);
+          globalThis.toast.show("Uspešno kreiranje, molimo Vas da sačekate odobrenje", {type: "success"});
         }, 0);
       });
     } catch (error) {
@@ -73,7 +73,7 @@ export default class ActivityStore {
       this.rootStore.unfreezeScreen();
       navigate("Arena");
       setTimeout(() => {
-        Toast.error("Došlo je do greške, molimo Vas pokušajte ponovo..");
+        globalThis.toast.show("Došlo je do greške, molimo Vas pokušajte ponovo..", {type: "danger"});
       }, 0);
     }
   };
@@ -81,12 +81,12 @@ export default class ActivityStore {
   loadPendingActivities = async () => {
     this.loadingInitial = true;
     try {
-      const activitiesEnvelope = await agent.Activity.getPendingActivities(
+      const activitiesEnvelope = await agent.PendingActivity.getPendingActivities(
         this.axiosParams
       );
       const { activities, activityCount } = activitiesEnvelope;
       runInAction(() => {
-        activities.forEach((activity) => {
+        activities.forEach((activity: { id: any; }) => {
           this.activityRegistry.set(activity.id, activity);
         });
         this.activityCount = activityCount;
@@ -103,21 +103,11 @@ export default class ActivityStore {
   approvePendingActivity = async (activityId: string, approve: boolean) => {
     try {
       this.rootStore.freezeScreen();
-      const success = await agent.Activity.resolvePendingActivity(
-        activityId,
-        approve
-      );
+
+      if (approve) await agent.Activity.approvePendingActivity(activityId);
+      else await agent.PendingActivity.dissaprove(activityId);
       runInAction(() => {
-        if (success) {
-          setTimeout(() => {
-            Toast.success("Uspešno ste odobrili/odbili aktivnost");
-          }, 0);
-          this.activityRegistry.delete(activityId);
-        } else {
-          setTimeout(() => {
-            Toast.error("Neuspešno ste odobrili/odbili aktivnost");
-          }, 0);
-        }
+        this.activityRegistry.delete(activityId);
         this.rootStore.modalStore.closeModal();
         this.rootStore.unfreezeScreen();
       });
@@ -125,7 +115,7 @@ export default class ActivityStore {
       this.rootStore.unfreezeScreen();
       this.rootStore.modalStore.closeModal();
       setTimeout(() => {
-        Toast.error("Neuspešno, proverite konzolu");
+        globalThis.toast.show("Neuspešno, proverite konzolu", {type: "danger"});
       }, 0);
     }
   };

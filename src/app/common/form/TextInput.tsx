@@ -1,6 +1,8 @@
 import { Icon, LabeledButton, Title } from '@muratoner/semantic-ui-react-native';
+import { TextInput as RNTextInput, StyleSheet, Text, TextInputProps, View } from 'react-native';
 import React, { forwardRef } from 'react';
-import { TextInput as RNTextInput, View, StyleSheet, TextInputProps, Text } from 'react-native';
+
+import { EkvitiColors } from '../../layout/EkvitiColors';
 import Spacer from './Spacer';
 
 interface IProps extends TextInputProps{
@@ -46,14 +48,14 @@ const TextInput : React.FC<IProps> = forwardRef(({ icon, error, touched, ...othe
           <View
             style={{
               borderRadius: 5,
-              borderColor: "red",
+              borderColor: EkvitiColors.error,
               borderWidth: 1,
               paddingLeft: 8,
               paddingRight: 8,
               alignSelf: "flex-start",
             }}
           >
-            <Text style={{ color: "rgb(230,106,71)" }}>{error}</Text>
+            <Text style={{ color: EkvitiColors.error }}>{error}</Text>
           </View>
         )}
       </Spacer>

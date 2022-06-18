@@ -1,14 +1,15 @@
+import { ActivityTypes, IActivityFormValues } from '../../app/models/activity';
 import { Button, Divider, Title } from '@muratoner/semantic-ui-react-native';
-import { useFormik } from 'formik';
+import { TextInput as RNTextInput, View } from 'react-native';
 import React, { useContext, useRef } from 'react';
-import { View, TextInput as RNTextInput } from 'react-native';
-import TextInput from '../../form/TextInput';
 import { combineValidators, composeValidators, hasLengthLessThan, isRequired, isRequiredIf } from 'revalidate';
-import { ActivityTypes, IActivityFormValues } from '../../models/activity';
-import FileInput from '../../form/FileInput';
-import { RootStoreContext } from '../../stores/rootStore';
-import ModalYesNo from '../../modals/ModalYesNo';
+
+import FileInput from '../../app/common/form/FileInput';
+import ModalYesNo from '../../app/common/modals/ModalYesNo';
+import { RootStoreContext } from '../../app/stores/rootStore';
+import TextInput from '../../app/common/form/TextInput';
 import { observer } from 'mobx-react-lite';
+import { useFormik } from 'formik';
 
 const validate = combineValidators({
   title: composeValidators(

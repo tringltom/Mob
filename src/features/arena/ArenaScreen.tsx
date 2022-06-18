@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Animated, Easing, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import Container from "toastify-react-native";
-import { RootStoreContext } from '../stores/rootStore';
-import { View, Image } from 'react-native';
+import { Animated, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+
+import { RootStoreContext } from '../../app/stores/rootStore';
 import { observer } from 'mobx-react-lite';
 
 const ArenaScreen = () => {
@@ -31,11 +30,10 @@ const ArenaScreen = () => {
         >
           <Animated.Image
             style={[{ width: 70, height: 70 }, animatedStyle]}
-            source={require("../../assets/d20.png")}
+            source={require("../../../assets/d20.png")}
           ></Animated.Image>
         </TouchableOpacity>
       )}
-      <Container position="bottom" height={45} width={300} duration={3000} />
     </>
   );
 };

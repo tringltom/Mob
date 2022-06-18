@@ -1,26 +1,47 @@
 import 'react-native-gesture-handler';
-import React, { useContext, useEffect, useState } from 'react';
-import { LogBox, StyleSheet, Text, View } from 'react-native';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer';
-import ArenaScreen from './src/screens/ArenaScreen';
-import WelcomeScreen from './src/screens/WelcomeScreen';
-import { DefaultTheme, DrawerActions, NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { RootStoreContext } from './src/stores/rootStore';
-import { observer } from 'mobx-react-lite';
-import ModalContainer from './src/modals/ModalContainer';
-import { navigate, navigationRef } from './src/navigationRef'
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import GoodDeedForm from './src/features/activities/GoodDeedForm';
-import JokeForm from './src/features/activities/JokeForm';
-import QuoteForm from './src/features/activities/QuoteForm';
-import PuzzleForm from './src/features/activities/PuzzleForm';
-import HappeningForm from './src/features/activities/HappeningForm';
-import ChallengeForm from './src/features/activities/ChallengeForm';
+
+import * as Expo from 'expo'
+import * as Linking from 'expo-linking';
+
 import { Avatar, Button, Icon } from '@muratoner/semantic-ui-react-native';
+import { DefaultTheme, DrawerActions, NavigationContainer } from '@react-navigation/native';
+import { DrawerContentScrollView, DrawerItem, DrawerItemList, createDrawerNavigator } from '@react-navigation/drawer';
+import { LogBox, StyleSheet, Text, View } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { navigate, navigationRef } from '../../navigationRef';
+
+import ApprovalScreen from '../../features/approvals/ApprovalScreen';
+import ArenaScreen from '../../features/arena/ArenaScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ChallengeForm from '../../features/activities/ChallengeForm';
+import GoodDeedForm from '../../features/activities/GoodDeedForm';
+import HappeningForm from '../../features/activities/HappeningForm';
+import JokeForm from '../../features/activities/JokeForm';
+import ModalContainer from '../common/modals/ModalContainer';
+import { ProfileContent } from '../../features/profile/ProfileContent';
+import PuzzleForm from '../../features/activities/PuzzleForm';
+import QuoteForm from '../../features/activities/QuoteForm';
+import RegisterSuccess from '../../features/user/RegisterSuccess';
+import { RootStoreContext } from '../stores/rootStore';
+import Toast from "react-native-toast-notifications";
+import VerifyEmail from '../../features/user/VerifyEmail';
+import WelcomeScreen from '../../features/WelcomeScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import { observer } from 'mobx-react-lite';
 import { useNavigation } from '@react-navigation/native';
-import ApprovalScreen from './src/screens/ApprovalScreen';
-import { ProfileContent } from './src/features/profile/ProfileContent';
+
+LogBox.ignoreLogs(['Reanimated 2']);
+
+const prefix = Linking.makeUrl('/');
+
+const linking = {
+  prefixes:[prefix],
+  config: {
+   screens:{
+     VerifyEmail: "/users/verifyEmail"
+   }
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -49,7 +70,6 @@ const RightDrawerNav = () => {
   const rootStore = useContext(RootStoreContext);
   const { user } = rootStore.userStore;
   
-
   return (
     <ActivityDrawer.Navigator
       screenOptions={{
@@ -58,8 +78,8 @@ const RightDrawerNav = () => {
         drawerPosition: "left",
         headerRight: () => (
           <View style={{flexDirection: 'row'}}>
-            <Avatar containerStyle={{marginRight: 5, marginTop: 5}} source={require('./assets/user.png')} />
-            <Button style={{marginRight: 4}} title={user?.username} color="secondary" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
+            <Avatar containerStyle={{marginRight: 5, marginTop: 5}} source={require('../../../assets/user.png')} />
+            <Button style={{marginRight: 4}} title={user?.userName} color="secondary" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
           </View>
         ),
       }}
@@ -128,11 +148,10 @@ const RightDrawerNav = () => {
     </ActivityDrawer.Navigator>
   );
 };
+
 const MainScreen = () => {
   const rootStore = useContext(RootStoreContext);
   const { logout } = rootStore.userStore;
-  const navigation = useNavigation();
-
 
   return (
     <SettingsDrawer.Navigator
@@ -198,7 +217,13 @@ const App = () => {
   const { token, setToken } = rootStore.commonStore;
   const { getUser } = rootStore.userStore
 
+  const [data, setData] = useState<Linking.ParsedURL>();
   const [appLoaded, setAppLoaded] = useState(false);
+
+  const handleDeepLink = (event: any) => {
+    let data = Linking.parse(event.url);
+    setData(data);
+  }
 
   useEffect(() => {
     async function getToken() {
@@ -206,17 +231,31 @@ const App = () => {
         setToken(res);
         getUser().finally(() => setAppLoaded(true));
       });
-    }
+    };
+
+    async function getInitialUrl() {
+      const initialUrl = await Linking.getInitialURL();
+      if (initialUrl) 
+        setData(Linking.parse(initialUrl));
+    };
+
     setAppLoaded(false);
     getToken();
-  }, []);
+
+    Linking.addEventListener("url", handleDeepLink);
+    if (!data)
+      getInitialUrl();
+    return () => {
+      Linking.removeEventListener("url", handleDeepLink);
+    };
+  },[]);
 
   return !appLoaded ? (
     <View style={styles.container}>
       <Text>Loading</Text>
     </View>
   ) : (
-    <NavigationContainer ref={navigationRef} theme={mainTheme}>
+    <NavigationContainer ref={navigationRef} linking={linking} theme={mainTheme}>
       <ModalContainer />
       <Stack.Navigator>
         {token == null ? (
@@ -236,9 +275,24 @@ const App = () => {
             }}
           />
         )}
+        <Stack.Screen
+            name="RegisterSuccess"
+            component={RegisterSuccess}
+            options={{
+              headerShown: false,
+            }}
+          />
+        <Stack.Screen
+            name="VerifyEmail"
+            component={VerifyEmail}
+            options={{
+              headerShown: false,
+            }}
+          />
       </Stack.Navigator>
+      <Toast ref={(ref: any) => global['toast'] = ref} />
     </NavigationContainer>
   );
 }
 
-export default observer(App);
+export default Expo.registerRootComponent(observer(App));

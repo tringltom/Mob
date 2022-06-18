@@ -1,7 +1,9 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import agent from "../api/agent";
 import { IUser, IUserFormValues } from "../models/user";
+import { makeAutoObservable, runInAction } from "mobx";
+
 import { RootStore } from "./rootStore";
+import agent from "../api/agent";
+import { navigate } from "../../navigationRef";
 
 export default class UserStore {
   rootStore: RootStore;
@@ -15,7 +17,7 @@ export default class UserStore {
   login = async (values: IUserFormValues) => {
     try {
       this.rootStore.freezeScreen();
-      const user = await agent.User.login(values);
+      const user = await agent.Session.login(values);
       runInAction(() => {
         this.user = user;
       });
@@ -24,6 +26,7 @@ export default class UserStore {
       this.rootStore.modalStore.closeModal();
     } catch (error) {
       this.rootStore.unfreezeScreen();
+      console.log(error)
       throw error;
     }
   };
@@ -35,7 +38,7 @@ export default class UserStore {
 
   getUser = async () => {
     try {
-      const user = await agent.User.current();
+      const user = await agent.Session.current();
       runInAction(() => {
         this.user = user;
         this.rootStore.showDice = user.isDiceRollAllowed;
@@ -48,9 +51,15 @@ export default class UserStore {
 
   register = async (values: IUserFormValues) => {
     try {
-      //await agent.User.register(values);
-      // this.rootStore.modalStore.closeModal();
+      this.rootStore.freezeScreen();
+      await agent.Session.register(values);
+      runInAction(() => {
+        this.rootStore.unfreezeScreen();
+        this.rootStore.modalStore.closeModal();
+        navigate("RegisterSuccess", values.email);
+      });
     } catch (error) {
+      this.rootStore.unfreezeScreen();
       throw error;
     }
   };

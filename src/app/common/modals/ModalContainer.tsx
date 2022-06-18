@@ -1,9 +1,9 @@
-import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
+import { StyleSheet, View } from 'react-native';
+
 import Modal from "react-native-modal";
-import { RootStoreContext } from "../stores/rootStore";
-import { View, StyleSheet } from 'react-native';
-import Container from "toastify-react-native";
+import { RootStoreContext } from "../../stores/rootStore";
+import { observer } from "mobx-react-lite";
 
 const ModalContainer = () => {
   const rootStore = useContext(RootStoreContext);

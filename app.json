@@ -1,10 +1,13 @@
 {
   "expo": {
-    "name": "Ekviti",
-    "slug": "Ekviti",
+    "name": "mob",
+    "scheme": "ekv",
+    "slug": "mob",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "entryPoint": "./src/app/layout/App.tsx",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -17,23 +20,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Dozvolite $(PRODUCT_NAME) da pristupi vašim slikama.",
-        "NSCameraUsageDescription": "Dozvolite $(PRODUCT_NAME) da pristupi vašoj kameri"
-      }
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "permissions": [
-        "android.permission.CAMERA",
-        "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE"
-      ],
-      "package": "com.marwilpuk.Ekviti"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

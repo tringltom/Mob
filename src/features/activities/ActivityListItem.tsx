@@ -1,10 +1,11 @@
+import { ActivityTypes, IActivity, IPhoto } from '../../app/models/activity';
 import React, { useContext } from 'react'
-import { ActivityTypes, IActivity, IPhoto } from '../../models/activity';
-import { RootStoreContext } from '../../stores/rootStore';
-import { Text, View} from 'react-native';
-import {Card} from 'react-native-elements';
+import { Text, View } from 'react-native';
+
 import { Button } from '@muratoner/semantic-ui-react-native';
-import ModalYesNo from '../../modals/ModalYesNo';
+import {Card} from 'react-native-elements';
+import ModalYesNo from '../../app/common/modals/ModalYesNo';
+import { RootStoreContext } from '../../app/stores/rootStore';
 
 export const ActivityListItem = React.memo<IActivity>(function ActivityListItem(
   {activity}
