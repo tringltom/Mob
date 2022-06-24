@@ -40,32 +40,25 @@ const PuzzleForm = () => {
   const descriptionRef = useRef<RNTextInput>();
   const answerRef = useRef<RNTextInput>();
 
-  const {
-    handleChange,
-    handleSubmit,
-    handleBlur,
-    values,
-    errors,
-    touched,
-  } = useFormik({
-    initialValues: {
-      title: "",
-      type: ActivityTypes.Puzzle,
-      description: "",
-      images: null,
-      answer: ""
-    },
-    validate: validate,
-    onSubmit: (values: IActivityFormValues) => openModal(
-      <ModalYesNo
-        handleConfirmation={() => 
-          create(values)
-        }
-        content="Nova Zagonetka"
-        icon="puzzle-piece"
-      />)
-    
-  });
+  const { handleChange, handleSubmit, handleBlur, values, errors, touched } =
+    useFormik({
+      initialValues: {
+        title: "",
+        type: ActivityTypes.Puzzle,
+        description: "",
+        images: null,
+        answer: "",
+      },
+      validate: validate,
+      onSubmit: (values: IActivityFormValues) =>
+        openModal(
+          <ModalYesNo
+            handleConfirmation={() => create(values)}
+            content="Nova Zagonetka"
+            icon="puzzle-piece"
+          />
+        ),
+    });
 
   return (
     <View
@@ -92,7 +85,7 @@ const PuzzleForm = () => {
         <Divider title={"Priložite sliku ili opišite zagonetku"} />
       </View>
       <View style={{ paddingHorizontal: 32, marginBottom: 16, width: "100%" }}>
-        <FileInput onChange={handleChange('images')}/>
+        <FileInput onChange={handleChange("images")} />
         <TextInput
           multiline
           numberOfLines={1}
@@ -120,11 +113,7 @@ const PuzzleForm = () => {
           returnKeyLabel="go"
           onSubmitEditing={() => handleSubmit()}
         />
-        <Button
-          title="Kreiraj"
-          color="primary"
-          onPress={handleSubmit}
-        />
+        <Button title="Kreiraj" color="primary" onPress={handleSubmit} />
       </View>
     </View>
   );
