@@ -5,6 +5,8 @@
 
 # Expo Build
 
+trigger: none
+
 pool:
   vmImage: 'macOS-latest'
 
