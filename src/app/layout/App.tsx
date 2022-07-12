@@ -9,6 +9,9 @@ import { DrawerContentScrollView, DrawerItem, DrawerItemList, createDrawerNaviga
 import { LogBox, StyleSheet, Text, View } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import { navigate, navigationRef } from '../../navigationRef';
+import {TailwindProvider} from 'tailwind-rn';
+import utilities from '../../../tailwind.json';
+import { useFonts, Comfortaa_400Regular, Comfortaa_500Medium, Comfortaa_600SemiBold, Comfortaa_700Bold } from '@expo-google-fonts/comfortaa';
 
 import ApprovalScreen from '../../features/approvals/ApprovalScreen';
 import ArenaScreen from '../../features/arena/ArenaScreen';
@@ -71,81 +74,83 @@ const RightDrawerNav = () => {
   const { user } = rootStore.userStore;
   
   return (
-    <ActivityDrawer.Navigator
-      screenOptions={{
-        headerShown: true,
-        headerTitle: "",
-        drawerPosition: "left",
-        headerRight: () => (
-          <View style={{flexDirection: 'row'}}>
-            <Avatar containerStyle={{marginRight: 5, marginTop: 5}} source={require('../../../assets/user.png')} />
-            <Button style={{marginRight: 4}} title={user?.userName} color="secondary" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
-          </View>
-        ),
-      }}
-    >
-      <ActivityDrawer.Screen name="Arena" component={ArenaScreen} />
-      <ActivityDrawer.Screen
-        name="Dobro Delo"
-        component={GoodDeedForm}
-        options={{
-          unmountOnBlur: true,
-          drawerIcon: ({ size }) => (
-            <Icon name="heartbeat" size={size} type="FontAwesome" />
+    <TailwindProvider utilities={utilities}>
+      <ActivityDrawer.Navigator
+        screenOptions={{
+          headerShown: true,
+          headerTitle: "",
+          drawerPosition: "left",
+          headerRight: () => (
+            <View style={{flexDirection: 'row'}}>
+              <Avatar containerStyle={{marginRight: 5, marginTop: 5}} source={require('../../../assets/user.png')} />
+              <Button style={{marginRight: 4}} title={user?.userName} color="secondary" onPress={() => navigation.dispatch(DrawerActions.openDrawer())}/>
+            </View>
           ),
         }}
-      />
-      <ActivityDrawer.Screen
-        name="Vic"
-        component={JokeForm}
-        options={{
-          unmountOnBlur: true,
-          drawerIcon: ({ size }) => (
-            <Icon name="smile-o" size={size} type="FontAwesome" />
-          ),
-        }}
-      />
-      <ActivityDrawer.Screen
-        name="Izreka"
-        component={QuoteForm}
-        options={{
-          unmountOnBlur: true,
-          drawerIcon: ({ size }) => (
-            <Icon name="commenting" size={size} type="FontAwesome" />
-          ),
-        }}
-      />
-      <ActivityDrawer.Screen
-        name="Zagonetka"
-        component={PuzzleForm}
-        options={{
-          unmountOnBlur: true,
-          drawerIcon: ({ size }) => (
-            <Icon name="puzzle-piece" size={size} type="FontAwesome" />
-          ),
-        }}
-      />
-      <ActivityDrawer.Screen
-        name="Događaj"
-        component={HappeningForm}
-        options={{
-          unmountOnBlur: true,
-          drawerIcon: ({ size }) => (
-            <Icon name="address-card-o" size={size} type="FontAwesome" />
-          ),
-        }}
-      />
-      <ActivityDrawer.Screen
-        name="Izazov"
-        component={ChallengeForm}
-        options={{
-          unmountOnBlur: true,
-          drawerIcon: ({ size }) => (
-            <Icon name="hand-rock-o" size={size} type="FontAwesome" />
-          ),
-        }}
-      />
-    </ActivityDrawer.Navigator>
+      >
+        <ActivityDrawer.Screen name="Arena" component={ArenaScreen} />
+        <ActivityDrawer.Screen
+          name="Dobro Delo"
+          component={GoodDeedForm}
+          options={{
+            unmountOnBlur: true,
+            drawerIcon: ({ size }) => (
+              <Icon name="heartbeat" size={size} type="FontAwesome" />
+            ),
+          }}
+        />
+        <ActivityDrawer.Screen
+          name="Vic"
+          component={JokeForm}
+          options={{
+            unmountOnBlur: true,
+            drawerIcon: ({ size }) => (
+              <Icon name="smile-o" size={size} type="FontAwesome" />
+            ),
+          }}
+        />
+        <ActivityDrawer.Screen
+          name="Izreka"
+          component={QuoteForm}
+          options={{
+            unmountOnBlur: true,
+            drawerIcon: ({ size }) => (
+              <Icon name="commenting" size={size} type="FontAwesome" />
+            ),
+          }}
+        />
+        <ActivityDrawer.Screen
+          name="Zagonetka"
+          component={PuzzleForm}
+          options={{
+            unmountOnBlur: true,
+            drawerIcon: ({ size }) => (
+              <Icon name="puzzle-piece" size={size} type="FontAwesome" />
+            ),
+          }}
+        />
+        <ActivityDrawer.Screen
+          name="Događaj"
+          component={HappeningForm}
+          options={{
+            unmountOnBlur: true,
+            drawerIcon: ({ size }) => (
+              <Icon name="address-card-o" size={size} type="FontAwesome" />
+            ),
+          }}
+        />
+        <ActivityDrawer.Screen
+          name="Izazov"
+          component={ChallengeForm}
+          options={{
+            unmountOnBlur: true,
+            drawerIcon: ({ size }) => (
+              <Icon name="hand-rock-o" size={size} type="FontAwesome" />
+            ),
+          }}
+        />
+      </ActivityDrawer.Navigator>
+    </TailwindProvider>
   );
 };
 
@@ -154,59 +159,61 @@ const MainScreen = () => {
   const { logout } = rootStore.userStore;
 
   return (
-    <SettingsDrawer.Navigator
-      screenOptions={{
-        headerShown: false,
-        drawerPosition: "right"
-      }}
-      drawerContent={(props) => {
-        return (
-          <DrawerContentScrollView {...props}>
-            <DrawerItemList {...props} />
-            <DrawerItem
-              label="Odjava"
-              onPress={logout}
-              icon={({ size }) => <Icon name="power" size={size} />}
-            />
-          </DrawerContentScrollView>
-        );
-      }}
-    >
-      <SettingsDrawer.Screen
-        name=" Arena"
-        component={RightDrawerNav}
-      />
-      <SettingsDrawer.Screen
-        name="Odobrenja"
-        component={ApprovalScreen}
-        options={{
-          unmountOnBlur: true,
-          drawerIcon: ({ size }) => (
-            <Icon name="check" size={size} type="FontAwesome" />
-          ),
-          headerTitle: 'Odobrenja',
-          headerShown: true,
-          headerLeft:() => (
-            <Button onPress={() => navigate('Arena')} style={{marginLeft: 5}} iconName="chevron-left" iconType="FontAwesome"/>
-          )
+    <TailwindProvider utilities={utilities}>
+      <SettingsDrawer.Navigator
+        screenOptions={{
+          headerShown: false,
+          drawerPosition: "right"
         }}
-      />
-       <SettingsDrawer.Screen
-        name="Profil"
-        component={ProfileContent}
-        options={{
-          unmountOnBlur: true,
-          drawerIcon: ({ size }) => (
-            <Icon name="users" size={size} type="FontAwesome" />
-          ),
-          headerTitle: 'Profil',
-          headerShown: true,
-          headerLeft:() => (
-            <Button onPress={() => navigate('Arena')} style={{marginLeft: 5}} iconName="chevron-left" iconType="FontAwesome"/>
-          )
+        drawerContent={(props) => {
+          return (
+            <DrawerContentScrollView {...props}>
+              <DrawerItemList {...props} />
+              <DrawerItem
+                label="Odjava"
+                onPress={logout}
+                icon={({ size }) => <Icon name="power" size={size} />}
+              />
+            </DrawerContentScrollView>
+          );
         }}
-      />
-    </SettingsDrawer.Navigator>
+      >
+        <SettingsDrawer.Screen
+          name=" Arena"
+          component={RightDrawerNav}
+        />
+        <SettingsDrawer.Screen
+          name="Odobrenja"
+          component={ApprovalScreen}
+          options={{
+            unmountOnBlur: true,
+            drawerIcon: ({ size }) => (
+              <Icon name="check" size={size} type="FontAwesome" />
+            ),
+            headerTitle: 'Odobrenja',
+            headerShown: true,
+            headerLeft:() => (
+              <Button onPress={() => navigate('Arena')} style={{marginLeft: 5}} iconName="chevron-left" iconType="FontAwesome"/>
+            )
+          }}
+        />
+        <SettingsDrawer.Screen
+          name="Profil"
+          component={ProfileContent}
+          options={{
+            unmountOnBlur: true,
+            drawerIcon: ({ size }) => (
+              <Icon name="users" size={size} type="FontAwesome" />
+            ),
+            headerTitle: 'Profil',
+            headerShown: true,
+            headerLeft:() => (
+              <Button onPress={() => navigate('Arena')} style={{marginLeft: 5}} iconName="chevron-left" iconType="FontAwesome"/>
+            )
+          }}
+        />
+      </SettingsDrawer.Navigator>
+    </TailwindProvider>
   );
 }
 
@@ -220,6 +227,13 @@ const App = () => {
   const [data, setData] = useState<Linking.ParsedURL>();
   const [appLoaded, setAppLoaded] = useState(false);
 
+  let [fontsLoaded] = useFonts({
+    Comfortaa_400Regular,
+    Comfortaa_500Medium, 
+    Comfortaa_600SemiBold, 
+    Comfortaa_700Bold
+  });
+
   const handleDeepLink = (event: any) => {
     let data = Linking.parse(event.url);
     setData(data);
@@ -228,7 +242,7 @@ const App = () => {
   useEffect(() => {
     async function getToken() {
       await AsyncStorage.getItem("jwt").then((res) => {
-        setToken(res);
+        setToken(res);        
         getUser().finally(() => setAppLoaded(true));
       });
     };
@@ -250,48 +264,52 @@ const App = () => {
     };
   },[]);
 
-  return !appLoaded ? (
-    <View style={styles.container}>
-      <Text>Loading</Text>
-    </View>
+  return !appLoaded && !fontsLoaded ? (
+    <TailwindProvider utilities={utilities}>
+      <View style={styles.container}>
+        <Text>Loading</Text>
+      </View>
+    </TailwindProvider>
   ) : (
-    <NavigationContainer ref={navigationRef} linking={linking} theme={mainTheme}>
-      <ModalContainer />
-      <Stack.Navigator>
-        {token == null ? (
+    <TailwindProvider utilities={utilities}>
+      <NavigationContainer ref={navigationRef} linking={linking} theme={mainTheme}>
+        <ModalContainer />
+        <Stack.Navigator>
+          {token == null ? (
+            <Stack.Screen
+              name="WelcomeScreen"
+              component={WelcomeScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+          ) : (
+            <Stack.Screen
+              name="MainScreen"
+              component={MainScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+          )}
           <Stack.Screen
-            name="WelcomeScreen"
-            component={WelcomeScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-        ) : (
+              name="RegisterSuccess"
+              component={RegisterSuccess}
+              options={{
+                headerShown: false,
+              }}
+            />
           <Stack.Screen
-            name="MainScreen"
-            component={MainScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-        )}
-        <Stack.Screen
-            name="RegisterSuccess"
-            component={RegisterSuccess}
-            options={{
-              headerShown: false,
-            }}
-          />
-        <Stack.Screen
-            name="VerifyEmail"
-            component={VerifyEmail}
-            options={{
-              headerShown: false,
-            }}
-          />
-      </Stack.Navigator>
-      <Toast ref={(ref: any) => global['toast'] = ref} />
-    </NavigationContainer>
+              name="VerifyEmail"
+              component={VerifyEmail}
+              options={{
+                headerShown: false,
+              }}
+            />
+        </Stack.Navigator>
+        <Toast ref={(ref: any) => global['toast'] = ref} />
+      </NavigationContainer>
+    </TailwindProvider>
   );
 }
 
