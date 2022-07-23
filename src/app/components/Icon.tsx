@@ -1,10 +1,9 @@
-import React, { MouseEventHandler } from 'react'
+import React from 'react'
 import { View } from 'react-native'
 
 import { faEyeSlash, faEye, faEnvelope, faLock, faUser, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { useTailwind } from 'tailwind-rn/dist';
 
 const ICON_MAPS: Record<string, IconDefinition> = {
   'eyeSlash': faEyeSlash,
@@ -21,8 +20,7 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
 }
 
 const Icon = (props: IconProps) => {
-
-  const tailwind = useTailwind();
+  
   const {iconName} = props;  
 
   return (
