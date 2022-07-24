@@ -1,4 +1,4 @@
-import { Image, TextInput, StyleSheet, Text, View } from "react-native";
+import { Image, TextInput, Text, View } from "react-native";
 import React, { useContext, useEffect, useRef } from "react";
 import { combineValidators, isRequired } from "revalidate";
 import { useTailwind } from "tailwind-rn";
@@ -20,7 +20,8 @@ const TwLoginForm = () => {
   const rootStore = useContext(RootStoreContext);
   const { login } = rootStore.userStore;
   const { openModal } = rootStore.modalStore;
-  const passwordRef = useRef<TextInput>();
+  const emailRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
   const tailwind = useTailwind();
 
   const isMounted = useRef(false);
@@ -69,17 +70,17 @@ const TwLoginForm = () => {
           isValid,
           isSubmitting,
         }) => (
-          <View style={tailwind("min-w-full")}>
+          <View style={tailwind("w-[90%]")}>
             <View
               style={tailwind(
-                `flex flex-row rounded-md bg-formBg items-center h-14 mb-3`
+                `w-full flex flex-row rounded-md bg-formBg items-center h-14 mb-3`
               )}
             >
               <View style={tailwind("pl-4 pr-2")}>
                 <Icon iconName="envelope" />
               </View>
 
-              <View>
+              <View style={tailwind('w-full')}>
                 <Text
                   style={tailwind(
                     `font-regular text-xs ${
@@ -98,8 +99,9 @@ const TwLoginForm = () => {
                   style={tailwind("font-regular text-xs")}
                   autoCorrect={false}
                   autoCapitalize="none"
-                  onChangeText={handleChange("email")}
+                  onChangeText={handleChange("email")}                  
                   onBlur={handleBlur("email")}
+                  ref={emailRef}
                   value={values.email}
                   blurOnSubmit={false}
                   keyboardType="email-address"
@@ -116,7 +118,7 @@ const TwLoginForm = () => {
                 <Icon iconName="password" />
               </View>
 
-              <View>
+              <View style={tailwind('w-full')}>
                 <Text
                   style={tailwind(
                     `font-regular text-xs ${
@@ -139,6 +141,7 @@ const TwLoginForm = () => {
                   autoCapitalize="none"
                   onChangeText={handleChange("password")}
                   onBlur={handleBlur("password")}
+                  ref={passwordRef}
                   value={values.password}
                   blurOnSubmit={false}
                   secureTextEntry={true}
@@ -188,10 +191,4 @@ const TwLoginForm = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  modalStyle: {
-    minWidth: "100%",
-    backgroundColor: "white",
-  },
-});
 export default TwLoginForm;
