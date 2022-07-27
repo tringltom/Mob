@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import Modal from "react-native-modal";
 import { RootStoreContext } from "../../stores/rootStore";
 import { observer } from "mobx-react-lite";
+import { useTailwind } from "tailwind-rn/dist";
 
 const ModalContainer = () => {
   const rootStore = useContext(RootStoreContext);
@@ -12,32 +13,18 @@ const ModalContainer = () => {
     closeModal,
   } = rootStore.modalStore;
 
-  const styles = StyleSheet.create({
-    content: {
-      backgroundColor: "white",
-      padding: 22,
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: 4,
-      borderColor: "rgba(0, 0, 0, 0.1)",
-    },
-    view: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  });
+  const tailwind = useTailwind();
 
   return (
     <Modal
-      style={styles.view}
+      style={tailwind('justify-center items-center')}
       isVisible={open}
       animationIn="zoomIn"
-      animationOut="zoomOut"
+      animationOut="zoomOut"      
       onBackdropPress={rootStore.allowEvents ? closeModal : () => {}}
       onBackButtonPress={closeModal}
     >
-      <View pointerEvents={rootStore.allowEvents ? "auto" : "none"} style={styles.content}>{body}</View>
+      <View pointerEvents={rootStore.allowEvents ? "auto" : "none"} style={tailwind('bg-white rounded-2xl justify-center items-center p-6')}>{body}</View>
     </Modal>
   );
 };
