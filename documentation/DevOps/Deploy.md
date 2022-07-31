@@ -1,0 +1,1 @@
+Potrebno je postaviti da se relis radi i za android (Google play) i za IOS (Apple store)
