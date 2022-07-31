@@ -17,12 +17,12 @@ Projekat je realizovan u React native sa typescript-m  i sa Mobx storovima.
 
 click Store "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/248/Store"
 click Agent "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/246/Agent"
-click Models "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/215/Models"
+click Models "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/238/Models"
 click Layout "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/250/Layout"
-click Components "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/216/Components"
+click Components "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/239/Components"
 click Assets "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/242/Assets"
 click Features "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/244/Features"
-click TypingsCustom "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/219/Typings-Custom"
+click TypingsCustom "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/237/Typing-Custom"
 click Common "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/240/Common"
 click Components "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Api/189/Domain"
 :::
