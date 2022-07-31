@@ -15,15 +15,15 @@ Projekat je realizovan u React native sa typescript-m  i sa Mobx storovima.
  Features --> Common --> Models
  Common --> Components;
 
-click Store "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/223/Store"
-click Agent "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/222/Agent"
+click Store "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/248/Store"
+click Agent "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/246/Agent"
 click Models "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/215/Models"
-click Layout "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/224/Layout"
+click Layout "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/250/Layout"
 click Components "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/216/Components"
-click Assets "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/220/Assets"
-click Features "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/221/Features"
+click Assets "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/242/Assets"
+click Features "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/244/Features"
 click TypingsCustom "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/219/Typings-Custom"
-click Common "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Spa/218/Common"
+click Common "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Mob/240/Common"
 click Components "https://dev.azure.com/3MPOS/Ekviti/_wiki/wikis/Api/189/Domain"
 :::
 
