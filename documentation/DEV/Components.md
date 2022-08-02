@@ -13,4 +13,4 @@ Ono što je bitno da napomenemo, media query koji nam omogućuju primenu stilova
 # Tailwind compiler
 Tailwind dolazi sa svojim kompajlerom koji posmatra naše tsx fajlove kroz ceo projekat, i u odnosu na klase koje smo koristili, generiše stilove u CSS fajl i automatski odradi "minify".
 
-Kada je potrebno stilizovati nešto, pokrenite `npm run build:css` i compiler je pokrenut u "watch" modu rada i kada sačuvate izmene u nekom tsx fajlu, on će osvežiti glavni CSS fajl.
+Kada je potrebno stilizovati nešto, pokrenite `npm run build:tailwind` i compiler je pokrenut u "watch" modu rada i kada sačuvate izmene u nekom tsx fajlu, on će osvežiti glavni CSS fajl.
