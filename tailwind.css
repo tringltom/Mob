@@ -34,36 +34,12 @@
   width: 112px
 }
 
-.w-full {
-  width: 100%
-}
-
-.w-max {
-  width: max-content
-}
-
-.w-9\/12 {
-  width: 75%
-}
-
-.w-11\/12 {
-  width: 91.666667%
-}
-
-.w-fit {
-  width: fit-content
-}
-
 .w-\[90\%\] {
   width: 90%
 }
 
-.w-\[100\%\] {
+.w-full {
   width: 100%
-}
-
-.min-w-full {
-  min-width: 100%
 }
 
 .flex-row {

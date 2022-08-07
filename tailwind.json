@@ -44,44 +44,14 @@
 			"width": 112
 		}
 	},
-	"w-full": {
-		"style": {
-			"width": "100%"
-		}
-	},
-	"w-max": {
-		"style": {
-			"width": "max-content"
-		}
-	},
-	"w-9/12": {
-		"style": {
-			"width": "75%"
-		}
-	},
-	"w-11/12": {
-		"style": {
-			"width": "91.666667%"
-		}
-	},
-	"w-fit": {
-		"style": {
-			"width": "fit-content"
-		}
-	},
 	"w-[90%]": {
 		"style": {
 			"width": "90%"
 		}
 	},
-	"w-[100%]": {
+	"w-full": {
 		"style": {
 			"width": "100%"
-		}
-	},
-	"min-w-full": {
-		"style": {
-			"minWidth": "100%"
 		}
 	},
 	"flex-row": {

@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IDiceResult } from "../models/diceResult";
 
 axios.defaults.baseURL = process.env.NODE_ENV !== 'production'
-? "http://192.168.0.15:4001"
+? "http://192.168.1.14:4001"
 : "https://ekvitiapi.azurewebsites.net";
 
 axios.interceptors.request.use(
